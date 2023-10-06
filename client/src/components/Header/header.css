@@ -1,0 +1,98 @@
+.header {
+  padding: 0 var(--spacing-small);
+}
+.header__top-bg {
+  height: 300px;
+  background-image: url(../../static/img/bg-header-kioto.jpg);
+  background-size: cover;
+  background-position: center 65%;
+  background-repeat: no-repeat;
+}
+.header-wrapper {
+  margin-top: var(--spacing-small);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-small);
+}
+.header__logo-img {
+  height: 80px;
+  width: 80px;
+}
+.header__logo-name {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+}
+.logo-title {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 600;
+}
+.phone-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-small);
+}
+.phone-top__title {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.phone-top__number {
+  width: auto;
+  font-weight: 600;
+  color: var(--bg-btn-active);
+  border-bottom: 2px solid transparent;
+}
+.phone-top__number:hover {
+  border-bottom: 2px solid var(--bg-btn-active);
+}
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-medium);
+}
+.header__basket {
+  position: relative;
+  width: auto;
+  padding: var(--spacing-small);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--spacing-small);
+  border-radius: var(--spacing-small);
+  cursor: pointer;
+}
+.header__basket-icons {
+  height: 28px;
+  width: 28px;
+  color: var(--bg-btn-default);
+}
+.header__basket-cart {
+  position: absolute;
+  top: -5px;
+  left: 35px;
+  font-size: 14px;
+  background-color: var(--bg-btn-active);
+  color: var(--text-white);
+  padding: 2px 4px;
+  border-radius: 35%;
+}
+.header__login-btn {
+  font-size: 20px;
+  background-color: #ffffff;
+  padding: 5px;
+  border: 2px solid var(--bg-btn-default);
+  border-radius: 10px;
+  transition: all 0.4s ease;
+}
+.header__login-btn:hover {
+  background-color: var(--bg-btn-default);
+  color: #ffffff;
+}

@@ -1,0 +1,11 @@
+.main__title {
+  margin: 50px 0 25px 0;
+  font-size: 40px;
+  font-weight: 600;
+}
+.main__products {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 30px;
+}
