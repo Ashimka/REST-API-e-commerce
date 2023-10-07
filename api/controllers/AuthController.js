@@ -11,12 +11,25 @@ class AuthController {
         password,
       });
 
-      return res.status(201).json(newUser);
+      return res
+        .status(201)
+        .json({ message: "Регистрация прошла ушпешно!", newUser });
     } catch (error) {
       next(error);
     }
   }
 
+  async activateAccount(req, res, next) {
+    try {
+      const link = req.params.link;
+
+      await AuthService.activateAccount(link);
+
+      return res.status(201).json({ message: "Аккаунт активирован" });
+    } catch (error) {
+      next(error);
+    }
+  }
   async login(req, res, next) {
     try {
     } catch (error) {
