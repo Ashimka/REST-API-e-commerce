@@ -32,6 +32,17 @@ class AuthController {
   }
   async login(req, res, next) {
     try {
+      const { email, password } = req.body;
+      const userData = await AuthService.login({ email, password });
+
+      res.cookie("refresh_jwt", userData.tokens.refreshToken, {
+        httpOnly: true,
+        sameSite: "None",
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      });
+
+      return res.status(201).json(userData);
     } catch (error) {
       next(error);
     }

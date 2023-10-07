@@ -4,6 +4,8 @@ import { v4 as uuid } from "uuid";
 import "dotenv/config";
 
 import MailService from "./MailService.js";
+import RolesServise from "./RolesServise.js";
+import TokenService from "./TokenService.js";
 
 const prisma = new PrismaClient();
 
@@ -36,6 +38,7 @@ class AuthService {
 
     return { data: { ...newUser, roles } };
   }
+
   async activateAccount(link) {
     const user = await prisma.user.findFirst({
       where: { activateLink: link },
@@ -52,7 +55,34 @@ class AuthService {
       },
     });
   }
-  async login(email, password) {}
+
+  async login({ email, password }) {
+    const userAuth = await prisma.user.findFirst({
+      where: { email },
+      select: { id: true, email: true, password: true, role: true },
+    });
+
+    if (!userAuth) throw ApiError.badRequest("Неверный логин или пароль");
+
+    const matchPassword = await bcrypt.compare(password, userAuth.password);
+
+    if (!matchPassword) throw ApiError.badRequest("Неверный логин или пароль");
+
+    const dataToken = {
+      "UserInfo": {
+        "email": userAuth.email,
+        "id": userAuth.id,
+        roles: RolesServise.addRole(userAuth),
+      },
+    };
+
+    const tokens = TokenService.createToken(dataToken);
+
+    await TokenService.saveToken(userAuth.id, tokens.refreshToken);
+
+    return { tokens, userAuth };
+  }
+
   async logout() {}
 }
 
