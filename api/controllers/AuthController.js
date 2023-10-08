@@ -31,6 +31,7 @@ class AuthController {
       next(error);
     }
   }
+
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
@@ -48,6 +49,7 @@ class AuthController {
       next(error);
     }
   }
+
   async logout(req, res, next) {
     try {
       const cookies = req.cookies;
@@ -60,6 +62,21 @@ class AuthController {
       res.clearCookie("refresh_token");
 
       return res.status(200).json({ message: "logout" });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async refreshToken(req, res, next) {
+    try {
+      const cookies = req.cookies;
+      const refreshToken = cookies?.refresh_token;
+
+      if (!refreshToken) throw ApiError.unauthorizedError("Не авторизован");
+
+      const accessToken = await AuthService.refreshToken(refreshToken);
+
+      res.status(200).json({ accessToken });
     } catch (error) {
       next(error);
     }

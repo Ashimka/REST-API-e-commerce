@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-// import bcrypt from "bcrypt";
+
 import jwt from "jsonwebtoken";
 
 import "dotenv/config";
+import ApiError from "../error/apiError.js";
+import RolesServise from "./RolesServise.js";
 
 const prisma = new PrismaClient();
 
@@ -36,6 +38,30 @@ class TokenService {
         refreshToken: null,
       },
     });
+  }
+
+  async refreshToken(user, refreshToken) {
+    const token = jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET,
+      (error, decoded) => {
+        const { ...data } = decoded.UserInfo;
+
+        if (error || user.email !== data.email)
+          throw ApiError.forbiden("invalid token");
+
+        const dataToken = {
+          "UserInfo": {
+            "email": data.email,
+            "id": data.id,
+            roles: RolesServise.addRole(user),
+          },
+        };
+
+        return dataToken;
+      }
+    );
+    return token;
   }
 }
 

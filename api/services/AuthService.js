@@ -90,6 +90,19 @@ class AuthService {
 
     await TokenService.removeToken(userId.id);
   }
+
+  async refreshToken(refreshToken) {
+    const foundUser = await prisma.user.findFirst({
+      where: { refreshToken },
+      select: { id: true, email: true, role: true },
+    });
+
+    const token = await TokenService.refreshToken(foundUser, refreshToken);
+
+    const { accessToken } = TokenService.createToken(token);
+
+    return accessToken;
+  }
 }
 
 export default new AuthService();
