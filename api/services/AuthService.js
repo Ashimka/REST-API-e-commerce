@@ -83,7 +83,13 @@ class AuthService {
     return { tokens, userAuth };
   }
 
-  async logout() {}
+  async logout(refreshToken) {
+    const userId = await prisma.user.findFirst({
+      where: { refreshToken },
+    });
+
+    await TokenService.removeToken(userId.id);
+  }
 }
 
 export default new AuthService();

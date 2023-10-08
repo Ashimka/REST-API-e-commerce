@@ -28,6 +28,15 @@ class TokenService {
       },
     });
   }
+
+  async removeToken(userId) {
+    await prisma.user.update({
+      where: { id: userId },
+      data: {
+        refreshToken: null,
+      },
+    });
+  }
 }
 
 export default new TokenService();

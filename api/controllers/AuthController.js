@@ -1,5 +1,6 @@
 import AuthService from "../services/AuthService.js";
 import ApiError from "../error/apiError.js";
+import "dotenv/config";
 
 class AuthController {
   async registration(req, res, next) {
@@ -35,10 +36,10 @@ class AuthController {
       const { email, password } = req.body;
       const userData = await AuthService.login({ email, password });
 
-      res.cookie("refresh_jwt", userData.tokens.refreshToken, {
+      res.cookie("refresh_token", userData.tokens.refreshToken, {
         httpOnly: true,
         sameSite: "None",
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
         maxAge: 24 * 60 * 60 * 1000,
       });
 
@@ -49,6 +50,16 @@ class AuthController {
   }
   async logout(req, res, next) {
     try {
+      const cookies = req.cookies;
+
+      const refreshToken = cookies.refresh_token;
+      if (!refreshToken) throw ApiError.unauthorizedError("Не авторизован");
+
+      await AuthService.logout(refreshToken);
+
+      res.clearCookie("refresh_token");
+
+      return res.status(200).json({ message: "logout" });
     } catch (error) {
       next(error);
     }
