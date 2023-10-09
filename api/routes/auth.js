@@ -7,11 +7,11 @@ const router = new Router();
 
 router.post(
   "/register",
-  authValidation(),
+  authValidation,
   validationErrors,
   AuthController.registration
 );
-router.post("/login", authValidation(), validationErrors, AuthController.login);
+router.post("/login", authValidation, validationErrors, AuthController.login);
 router.get("/activate/:link", AuthController.activateAccount);
 router.get("/logout", AuthController.logout);
 router.get("/refresh", AuthController.refreshToken);

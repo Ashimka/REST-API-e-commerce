@@ -40,7 +40,7 @@ class TokenService {
     });
   }
 
-  async refreshToken(user, refreshToken) {
+  refreshToken(user, refreshToken) {
     const token = jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET,
