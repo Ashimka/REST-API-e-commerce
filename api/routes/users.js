@@ -5,7 +5,9 @@ import { isAuth } from "../middleware/authMiddleware.js";
 
 const router = new Router();
 
-router.get("/", isAuth, UserController.allUsers);
-router.post("/profile", UserController.userProfile);
+router.get("/", UserController.allUsers);
+router.get("/:id", UserController.getOneUser);
+router.post("/profile", isAuth, UserController.userProfile);
+router.delete("/", UserController.deleteUser);
 
 export default router;

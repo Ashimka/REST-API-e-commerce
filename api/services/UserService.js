@@ -10,6 +10,33 @@ class UserService {
     });
     return allUsers;
   }
+
+  async getOneUser({ id }) {
+    const oneUser = await prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!oneUser) {
+      throw ApiError.badRequest("Пользователь не найден");
+    }
+
+    return oneUser;
+  }
+
+  async deleteUser({ id }) {
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+    if (!user) {
+      throw ApiError.badRequest("Пользователь не найден");
+    }
+
+    await prisma.user.delete({
+      where: { id },
+      include: { role: true },
+    });
+  }
+
   async userProfile({ userId, name, addres, phone }) {
     const profile = await prisma.profile.create({
       data: { userId, name, addres, phone },

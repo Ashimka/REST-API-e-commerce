@@ -1,4 +1,3 @@
-import ApiError from "../error/apiError.js";
 import UserService from "../services/UserService.js";
 
 class UserController {
@@ -16,6 +15,30 @@ class UserController {
       next(error);
     }
   }
+
+  async getOneUser(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      const oneUser = await UserService.getOneUser({ id });
+
+      return res.status(200).json(oneUser);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async deleteUser(req, res, next) {
+    try {
+      const { id } = req.body;
+      await UserService.deleteUser({ id });
+
+      res.json({ message: "User deleted..." });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async userProfile(req, res, next) {
     try {
       const { userId, name, addres, phone } = req.body;
