@@ -58,9 +58,11 @@ class UserController {
   }
   async userProfileUpdate(req, res, next) {
     try {
-      const userId = req.id;
-      console.log(req);
+      let userId;
+      const isAdmin = req?.roles.includes(777);
+
       const { name, addres, phone } = req.body;
+      isAdmin ? (userId = req.body.userId) : (userId = req.id);
 
       const profile = await UserService.userProfileUpdate({
         userId,

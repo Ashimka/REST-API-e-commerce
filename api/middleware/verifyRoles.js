@@ -1,5 +1,3 @@
-import ApiError from "../error/apiError.js";
-
 const verifyRoles = (...allowedRoles) => {
   return (req, res, next) => {
     if (!req?.roles) {
