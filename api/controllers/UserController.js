@@ -41,7 +41,8 @@ class UserController {
 
   async userProfile(req, res, next) {
     try {
-      const { userId, name, addres, phone } = req.body;
+      const userId = req.id;
+      const { name, addres, phone } = req.body;
 
       const profile = await UserService.userProfile({
         userId,
@@ -55,8 +56,20 @@ class UserController {
       next(error);
     }
   }
-  async oneUser(req, res, next) {
+  async userProfileUpdate(req, res, next) {
     try {
+      const userId = req.id;
+      console.log(req);
+      const { name, addres, phone } = req.body;
+
+      const profile = await UserService.userProfileUpdate({
+        userId,
+        name,
+        addres,
+        phone,
+      });
+
+      return res.status(201).json(profile);
     } catch (error) {
       next(error);
     }

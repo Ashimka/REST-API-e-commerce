@@ -43,6 +43,19 @@ class UserService {
     });
     return profile;
   }
+
+  async userProfileUpdate({ userId, name, addres, phone }) {
+    const profile = await prisma.profile.update({
+      where: { userId },
+      data: {
+        name,
+        addres,
+        phone,
+      },
+    });
+
+    return profile;
+  }
 }
 
 export default new UserService();
