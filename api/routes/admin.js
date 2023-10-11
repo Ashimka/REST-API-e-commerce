@@ -1,5 +1,6 @@
 import { Router } from "express";
-import AdminController from "../controllers/AdminController.js";
+import CategoryController from "../controllers/CategoryController.js";
+import ProductController from "../controllers/ProductController.js";
 import { isAuth } from "../middleware/authMiddleware.js";
 import verifyRoles from "../middleware/verifyRoles.js";
 
@@ -12,14 +13,15 @@ router
     "/category",
     isAuth,
     verifyRoles(ROLES_LIST.admin_role),
-    AdminController.createCategory
+    CategoryController.createCategory
   )
-  .get("/category", AdminController.getAllCategory)
+  .get("/category", CategoryController.getAllCategory)
   .delete(
     "/category",
     isAuth,
     verifyRoles(ROLES_LIST.admin_role),
-    AdminController.removeCategory
+    CategoryController.removeCategory
   );
+router.post("/products", ProductController.createProduct);
 
 export default router;

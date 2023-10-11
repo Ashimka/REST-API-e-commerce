@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-class AdminService {
+class CategoryService {
   async createCategory({ name }) {
     const newCat = await prisma.category.create({
       data: { name },
@@ -27,4 +27,4 @@ class AdminService {
     });
   }
 }
-export default new AdminService();
+export default new CategoryService();

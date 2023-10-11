@@ -1,11 +1,11 @@
-import AdminService from "../services/AdminService.js";
+import CategoryService from "../services/CategoryService.js";
 
-class AdminController {
+class CategoryController {
   async createCategory(req, res, next) {
     try {
       const { name } = req.body;
 
-      const newCat = await AdminService.createCategory({ name });
+      const newCat = await CategoryService.createCategory({ name });
 
       return res.status(201).json(newCat);
     } catch (error) {
@@ -15,7 +15,7 @@ class AdminController {
 
   async getAllCategory(req, res, next) {
     try {
-      const allCat = await AdminService.getAllCategory();
+      const allCat = await CategoryService.getAllCategory();
 
       return res.status(200).json(allCat);
     } catch (error) {
@@ -27,7 +27,7 @@ class AdminController {
     try {
       const { id } = req.body;
 
-      await AdminService.removeCategory(id);
+      await CategoryService.removeCategory(id);
 
       return res.json({ message: "Category name deleted!" });
     } catch (error) {
@@ -35,4 +35,4 @@ class AdminController {
     }
   }
 }
-export default new AdminController();
+export default new CategoryController();
