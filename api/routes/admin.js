@@ -1,6 +1,5 @@
 import { Router } from "express";
-
-import UserController from "../controllers/UserController.js";
+import AdminController from "../controllers/AdminController.js";
 import { isAuth } from "../middleware/authMiddleware.js";
 import verifyRoles from "../middleware/verifyRoles.js";
 
@@ -9,16 +8,18 @@ import ROLES_LIST from "../options/rolesList.js";
 const router = new Router();
 
 router
-  .get("/", UserController.allUsers)
-  .delete(
-    "/",
+  .post(
+    "/category",
     isAuth,
     verifyRoles(ROLES_LIST.admin_role),
-    UserController.deleteUser
+    AdminController.createCategory
+  )
+  .get("/category", AdminController.getAllCategory)
+  .delete(
+    "/category",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    AdminController.removeCategory
   );
-router.get("/:id", UserController.getOneUser);
-router
-  .post("/profile", isAuth, UserController.userProfile)
-  .patch("/profile", isAuth, UserController.userProfileUpdate);
 
 export default router;

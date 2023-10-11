@@ -16,7 +16,7 @@ model User {
   password     String
   activateLink String?
   isActivated  Boolean  @default(false)
-  refreshToken String? @db.VarChar(1000)
+  refreshToken String?  @db.VarChar(1000)
   created_at   DateTime @default(now())
   updated_at   DateTime @updatedAt
   role         Role?
@@ -53,21 +53,20 @@ model Order {
 }
 
 model Product {
-  id          String    @id @default(uuid())
+  id          String     @id @default(uuid())
   name        String
-  description String @db.VarChar(1000)
+  description String     @db.VarChar(1000)
   image       String
   price       Int
   discount    Int?
   in_stock    Boolean
-  order       Order     @relation(fields: [orderId], references: [id])
+  order       Order      @relation(fields: [orderId], references: [id])
   orderId     Int
-  category    Category?
+  category    Category[]
 }
 
 model Category {
-  id        Int     @id @default(autoincrement())
-  name      String
-  product   Product @relation(fields: [productId], references: [id])
-  productId String  @unique
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
 }

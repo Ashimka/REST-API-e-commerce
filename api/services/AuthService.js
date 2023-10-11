@@ -59,7 +59,17 @@ class AuthService {
   async login({ email, password }) {
     const userAuth = await prisma.user.findFirst({
       where: { email },
-      select: { id: true, email: true, password: true, role: true },
+      select: {
+        id: true,
+        email: true,
+        password: true,
+        role: {
+          select: {
+            user_role: true,
+            admin_role: true,
+          },
+        },
+      },
     });
 
     if (!userAuth) throw ApiError.badRequest("Неверный логин или пароль");
@@ -97,7 +107,7 @@ class AuthService {
       select: { id: true, email: true, role: true },
     });
 
-    const token = await TokenService.refreshToken(foundUser, refreshToken);
+    const token = TokenService.refreshToken(foundUser, refreshToken);
 
     const { accessToken } = TokenService.createToken(token);
 

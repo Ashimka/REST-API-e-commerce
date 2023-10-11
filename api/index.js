@@ -14,31 +14,6 @@ app.use(cookieParser());
 
 app.use("/api", router);
 
-// app.get("/api", async (req, res) => {
-//   try {
-//     const allUser = await prisma.user.findMany({
-//       select: {
-//         email: true,
-//         role: true,
-//       },
-//       // include: { role: true },
-//     });
-//     res.status(200).json(allUser);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-// app.post("/api", async (req, res) => {
-//   try {
-//     const newUser = await prisma.user.create({ data: req.body });
-
-//     await prisma.role.create({ data: { userId: newUser.id } });
-//     res.status(200).json(newUser);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
 app.use(errorHandler);
 
 app.listen(PORT, () => {

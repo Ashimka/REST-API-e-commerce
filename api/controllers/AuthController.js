@@ -44,7 +44,7 @@ class AuthController {
         maxAge: 24 * 60 * 60 * 1000,
       });
 
-      return res.status(201).json(userData);
+      return res.status(200).json(userData);
     } catch (error) {
       next(error);
     }

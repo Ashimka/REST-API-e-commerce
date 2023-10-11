@@ -54,7 +54,7 @@ class TokenService {
           "UserInfo": {
             "email": data.email,
             "id": data.id,
-            roles: RolesServise.addRole(user),
+            roles: RolesServise.addRole(user.role),
           },
         };
 

@@ -14,6 +14,15 @@ class UserService {
   async getOneUser({ id }) {
     const oneUser = await prisma.user.findUnique({
       where: { id },
+      select: {
+        email: true,
+        role: {
+          select: {
+            user_role: true,
+            admin_role: true,
+          },
+        },
+      },
     });
 
     if (!oneUser) {
