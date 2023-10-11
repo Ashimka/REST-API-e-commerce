@@ -6,12 +6,7 @@ const verifyRoles = (...allowedRoles) => {
 
     const rolesArrey = [...allowedRoles];
 
-    let role = [];
-
-    if (req.roles.admin_role) role.push(req.roles.admin_role);
-    role.push(req.roles.user_role);
-
-    const result = role
+    const result = req.roles
       .map((role) => rolesArrey.includes(role))
       .find((value) => value === true);
 

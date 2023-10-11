@@ -1,9 +1,6 @@
 class RolesService {
-  addRole(user) {
-    let roles = [];
-
-    if (user.role.admin_role) roles.push(user.role.admin_role);
-    roles.push(user.role.user_role);
+  addRole(role) {
+    const roles = Object.values(role).slice(-2).filter(Number);
 
     return roles;
   }

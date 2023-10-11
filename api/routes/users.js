@@ -15,7 +15,7 @@ router.patch("/profile", isAuth, UserController.userProfileUpdate);
 router.delete(
   "/",
   isAuth,
-  verifyRoles(ROLES_LIST.admin),
+  verifyRoles(ROLES_LIST.admin_role),
   UserController.deleteUser
 );
 

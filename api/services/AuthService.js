@@ -72,7 +72,7 @@ class AuthService {
       "UserInfo": {
         "email": userAuth.email,
         "id": userAuth.id,
-        roles: RolesServise.addRole(userAuth),
+        roles: RolesServise.addRole(userAuth.role),
       },
     };
 
