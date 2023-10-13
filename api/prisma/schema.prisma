@@ -43,30 +43,38 @@ model Profile {
 }
 
 model Order {
-  id          Int       @id @default(autoincrement())
-  total_price Int
-  status      String
-  created_at  DateTime  @default(now())
-  user        User      @relation(fields: [userId], references: [id])
-  userId      String
-  product     Product[]
+  id           Int      @id @default(autoincrement())
+  detailsOrder String
+  total_price  Int
+  status       Boolean
+  created_at   DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
 }
 
 model Product {
-  id          String     @id @default(uuid())
-  name        String
-  description String     @db.VarChar(1000)
-  image       String
+  id          String        @id @default(uuid())
+  name        String        @unique
+  description String        @db.VarChar(1000)
+  image       String?
   price       Int
   discount    Int?
   in_stock    Boolean
-  order       Order      @relation(fields: [orderId], references: [id])
-  orderId     Int
-  category    Category[]
+  category    String
+  catId       Product_Cat[]
+}
+
+model Product_Cat {
+  id         Int        @id @default(autoincrement())
+  name       String
+  product    Product[]
+  productId  String     @unique
+  category   Category[]
+  categoryId Int
 }
 
 model Category {
-  id       Int       @id @default(autoincrement())
-  name     String    @unique
-  products Product[]
+  id         Int           @id @default(autoincrement())
+  name       String        @unique
+  productCat Product_Cat[]
 }

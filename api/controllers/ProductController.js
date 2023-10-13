@@ -3,7 +3,8 @@ import ProductService from "../services/ProductService.js";
 class ProductController {
   async createProduct(req, res, next) {
     try {
-      const { name, description, image, price, in_stock, category } = req.body;
+      const { name, description, image, price, in_stock, category, catId } =
+        req.body;
 
       const newProduct = await ProductService.createProduct({
         name,
@@ -12,6 +13,7 @@ class ProductController {
         price,
         in_stock,
         category,
+        catId,
       });
 
       return res.status(201).json(newProduct);
