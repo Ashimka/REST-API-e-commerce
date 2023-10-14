@@ -26,6 +26,18 @@ class ProductService {
 
     return newProduct;
   }
+
+  async getAllProducts({ limit, page }) {
+    const products = await prisma.product.findMany({
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+
+    const quantityProducts = await prisma.product.count();
+    const totelPages = Math.ceil(quantityProducts / Number.parseInt(limit));
+
+    return { totelPages, quantityProducts, products };
+  }
 }
 
 export default new ProductService();

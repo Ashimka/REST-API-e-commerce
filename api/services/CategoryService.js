@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import ApiError from "../error/apiError.js";
 
 const prisma = new PrismaClient();
 
@@ -9,6 +10,20 @@ class CategoryService {
     });
 
     return newCat;
+  }
+
+  async getOneCategory(cat) {
+    const category = await prisma.product.findMany({
+      where: {
+        category: cat,
+      },
+    });
+
+    if (!category.length) {
+      throw ApiError.notFound("Не найдено");
+    }
+
+    return category;
   }
 
   async getAllCategory() {

@@ -1,15 +1,16 @@
 import { Router } from "express";
 
-import auth from "./auth.js";
-import users from "./users.js";
-import admin from "./admin.js";
+import authRoute from "./authRoute.js";
+import usersRoute from "./usersRoute.js";
+import adminRoute from "./adminRoute.js";
+import productRoute from "./productRoute.js";
 
 const router = new Router();
 
-router.use("/auth", auth);
-router.use("/users", users);
-router.use("/admins", admin);
-// router.use("/products", product);
+router.use("/auth", authRoute);
+router.use("/users", usersRoute);
+router.use("/admins", adminRoute);
+router.use("/products", productRoute);
 // router.use("/orders", order);
 // router.use("/cart", cart);
 

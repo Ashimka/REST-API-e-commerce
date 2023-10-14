@@ -13,6 +13,18 @@ class CategoryController {
     }
   }
 
+  async getOneCategory(req, res, next) {
+    try {
+      const { category } = req.params;
+
+      const cat = await CategoryService.getOneCategory(category);
+
+      return res.status(200).json(cat);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getAllCategory(req, res, next) {
     try {
       const allCat = await CategoryService.getAllCategory();
