@@ -3,24 +3,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class ProductService {
-  async createProduct({
-    name,
-    description,
-    image,
-    price,
-    in_stock,
-    category,
-    catId,
-  }) {
+  async createProduct({ name, description, image, price, in_stock, category }) {
     const newProduct = await prisma.product.create({
-      data: { name, description, image, price, in_stock, category },
+      data: { name, description, image, price, in_stock },
     });
 
     await prisma.product_Cat.create({
       data: {
-        name: newProduct.category,
+        name: category,
         productId: newProduct.id,
-        categoryId: catId,
       },
     });
 
@@ -37,6 +28,14 @@ class ProductService {
     const totelPages = Math.ceil(quantityProducts / Number.parseInt(limit));
 
     return { totelPages, quantityProducts, products };
+  }
+
+  async getOneProduct(id) {
+    const product = await prisma.product.findUnique({
+      where: { id },
+    });
+
+    return product;
   }
 }
 

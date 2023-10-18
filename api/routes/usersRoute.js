@@ -1,4 +1,5 @@
 import { Router } from "express";
+import OrderController from "../controllers/OrderController.js";
 
 import UserController from "../controllers/UserController.js";
 import { isAuth } from "../middleware/authMiddleware.js";
@@ -20,5 +21,6 @@ router.get("/:id", UserController.getOneUser);
 router
   .post("/profile", isAuth, UserController.userProfile)
   .patch("/profile", isAuth, UserController.userProfileUpdate);
+router.post("/order", isAuth, OrderController.newOrder);
 
 export default router;
