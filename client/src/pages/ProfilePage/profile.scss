@@ -1,0 +1,42 @@
+.profile {
+  margin: 20px 0;
+  display: flex;
+
+  &__info {
+    padding-top: 20px;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    &-avatar {
+      width: 80px;
+      border-radius: 50%;
+    }
+    &-name {
+      font-size: 24px;
+    }
+  }
+  &__nav {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__form {
+    flex: 3;
+
+    .profile {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &__btn {
+        width: 100px;
+        margin-left: auto;
+      }
+    }
+  }
+}

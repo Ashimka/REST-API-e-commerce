@@ -1,10 +1,10 @@
 import React from "react";
 import { BsTelegram } from "react-icons/bs";
 
-import logo from "../../static/img/logo.jpg";
+import logo from "../../static/img/logo.png";
 import vk from "../../static/img/vk.png";
 
-import "./footer.css";
+import "./footer.scss";
 const Footer = () => {
   return (
     <>

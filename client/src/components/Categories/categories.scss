@@ -1,0 +1,26 @@
+.category {
+  margin-top: var(--spacing-medium);
+  background-color: var(--bg-lightgray);
+
+  &__list {
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__item {
+    background-color: var(--bg-body);
+    padding: 5px 6px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 16px;
+    &:hover {
+      outline: 1px solid var(--bg-btn-active);
+    }
+  }
+
+  .category-active {
+    background-color: var(--bg-btn-hover);
+  }
+}

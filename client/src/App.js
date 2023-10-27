@@ -1,19 +1,21 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
 
-import Header from "./components/Header";
-import Categiries from "./components/Categories";
 import Home from "./pages/Home";
-import Footer from "./components/Footer";
+import Login from "./pages/Login";
+import Profile from "./pages/ProfilePage";
 
 const App = () => {
   return (
     <>
-      <div className="container">
-        <Header />
-        <Categiries />
-        <Home />
-        <Footer />
-      </div>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/users/profile" element={<Profile />} />
+        </Route>
+      </Routes>
     </>
   );
 };

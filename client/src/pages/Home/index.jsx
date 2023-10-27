@@ -2,12 +2,12 @@ import React from "react";
 import Product from "../../components/Product";
 
 import { products } from "../../data";
-import "./home.css";
+import "./home.scss";
 
 const Home = () => {
   return (
     <>
-      <main className="main">
+      <div className="main">
         <div className="main__title">Бургеры</div>
         <div className="main-wrapper">
           <div className="main__products">
@@ -21,7 +21,7 @@ const Home = () => {
             ))}
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };

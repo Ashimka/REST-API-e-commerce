@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./product.css";
+import "./product.scss";
 
 const Product = ({ image, title, price }) => {
   return (

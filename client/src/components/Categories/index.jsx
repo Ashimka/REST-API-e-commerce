@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { data } from "../../data";
 
-import "./categories.css";
+import "./categories.scss";
 
 const Categories = () => {
   const [isActiveItem, setIsActiveItem] = useState("01");

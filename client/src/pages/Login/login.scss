@@ -1,0 +1,16 @@
+.login-form {
+  margin: 0 auto;
+  max-width: 475px;
+  padding: 10px;
+  border: 2px solid blue;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__title {
+    margin: 10px 0;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
