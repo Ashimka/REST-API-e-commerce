@@ -3,7 +3,7 @@ import { axiosPrivate } from "../api/axios";
 
 export const createProfile = createAsyncThunk(
   "user/createProfile",
-  async (userData, { thunkAPI }) => {
+  async (userData, thunkAPI) => {
     try {
       const { data } = await axiosPrivate.post("/users/profile", userData);
 
@@ -16,11 +16,21 @@ export const createProfile = createAsyncThunk(
 
 export const updateProfile = createAsyncThunk(
   "user/updateProfile",
-  async (userData, { thunkAPI }) => {
+  async (userData, thunkAPI) => {
     try {
       const { data } = await axiosPrivate.patch("/users/profile", userData);
       console.log(data);
       return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const getProfile = createAsyncThunk(
+  "user/getProfile",
+  async (_, thunkAPI) => {
+    try {
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

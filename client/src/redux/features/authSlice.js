@@ -10,6 +10,7 @@ export const refreshToken = createAsyncThunk("auth/refreshToken", async () => {
 const initialState = {
   user: null,
   token: null,
+  isAuth: false,
 };
 
 const authSlice = createSlice({
@@ -21,16 +22,19 @@ const authSlice = createSlice({
 
       state.user = email;
       state.token = accessToken;
+      state.isAuth = true;
     },
 
     logOut: (state) => {
       state.user = null;
       state.token = null;
+      state.isAuth = false;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(refreshToken.fulfilled, (state, action) => {
       state.token = action.payload.accessToken;
+      state.isAuth = true;
     });
   },
 });

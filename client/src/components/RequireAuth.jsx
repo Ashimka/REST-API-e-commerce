@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 
 const RequireAuth = ({ allowedRoles }) => {
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => state.persistedReducer.auth.token);
   const location = useLocation();
 
   const decoded = token ? jwtDecode(token) : undefined;

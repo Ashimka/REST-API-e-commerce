@@ -22,7 +22,9 @@ export const axiosPrivate = axios.create({
 });
 
 axiosPrivate.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${store.getState().auth.token}`;
+  config.headers.Authorization = `Bearer ${
+    store.getState().persistedReducer.auth.token
+  }`;
 
   return config;
 });

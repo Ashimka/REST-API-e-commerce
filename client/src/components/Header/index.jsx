@@ -15,7 +15,7 @@ import "./header.scss";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.auth.user);
+  const isAuth = useSelector((state) => state.persistedReducer.auth.user);
 
   const cart = false;
 
