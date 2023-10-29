@@ -1,4 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { axiosPrivate } from "../api/axios";
+
+export const refreshToken = createAsyncThunk("auth/refreshToken", async () => {
+  const { data } = await axiosPrivate.get("/auth/refresh");
+  console.log(data);
+  return data;
+});
 
 const initialState = {
   user: null,
@@ -20,6 +27,11 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(refreshToken.fulfilled, (state, action) => {
+      state.token = action.payload.accessToken;
+    });
   },
 });
 

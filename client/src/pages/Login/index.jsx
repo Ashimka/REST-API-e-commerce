@@ -8,7 +8,7 @@ import "./login.scss";
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("460050");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

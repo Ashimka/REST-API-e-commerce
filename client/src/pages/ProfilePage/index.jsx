@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { createProfile } from "../../redux/features/userSlice";
+import { createProfile, updateProfile } from "../../redux/features/userSlice";
 
 import "./profile.scss";
 import avatar from "../../static/img/avatar.jpg";
@@ -23,7 +23,8 @@ const Profile = () => {
       data.append("addres", addres);
       data.append("phone", phone);
 
-      dispatch(createProfile(data));
+      // dispatch(createProfile(data));
+      dispatch(updateProfile(data));
     } catch (error) {
       console.log(error);
     }
