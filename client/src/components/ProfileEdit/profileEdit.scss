@@ -1,0 +1,29 @@
+.profile-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__input {
+    padding: var(--spacing-small);
+    border: 2px solid var(--bg-btn-active);
+    border-radius: 5px;
+  }
+
+  .profile-edit-buttons {
+    display: flex;
+    margin-left: auto;
+    gap: var(--spacing-small);
+
+    &__btn {
+      width: 100px;
+      padding: 5px 0;
+      background: var(--bg-btn-active);
+      color: var(--text-white);
+      border-radius: 10px;
+
+      &:hover {
+        background: var(--bg-btn-hover);
+      }
+    }
+  }
+}

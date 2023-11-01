@@ -15,7 +15,7 @@ import "./header.scss";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isAuth = useSelector((state) => state.persistedReducer.auth.user);
+  const isAuth = useSelector((state) => state.persistedReducer.auth.isAuth);
 
   const cart = false;
 
@@ -32,7 +32,9 @@ const Header = () => {
         <div className="header-wrapper">
           <div className="header__left">
             <div className="header__logo">
-              <img src={logo} alt="" className="header__logo-img" />
+              <Link to={"/"}>
+                <img src={logo} alt="" className="header__logo-img" />
+              </Link>
               <div className="header__logo-name">
                 <span className="logo-title">КИОТО</span>
                 <span className="logo-subtitle">
@@ -55,10 +57,12 @@ const Header = () => {
               {cart && <span className="header__basket-cart">4</span>}
             </div>
             <div className="header__auth">
-              {!!isAuth ? (
+              {isAuth ? (
                 <>
                   <div className="header__logout">
-                    <AiOutlineUser />
+                    <Link to={"/users/profile"}>
+                      <AiOutlineUser />
+                    </Link>
                     <button
                       className="header__logout-btn"
                       onClick={handleLogout}

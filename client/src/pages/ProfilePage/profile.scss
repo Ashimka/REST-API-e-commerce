@@ -1,9 +1,10 @@
 .profile {
   margin: 20px 0;
+  padding: 20px;
   display: flex;
+  gap: var(--spacing-medium);
 
   &__info {
-    padding-top: 20px;
     flex: 2;
     display: flex;
     flex-direction: column;
@@ -19,23 +20,50 @@
     }
   }
   &__nav {
+    width: 100%;
+    padding: var(--spacing-small);
     margin-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 15px;
+
+    &-item {
+      cursor: pointer;
+      border: 2px solid var(--bg-btn-active);
+      border-radius: 5px;
+      padding: var(--spacing-small);
+
+      &:hover {
+        background: var(--bg-btn-hover);
+      }
+    }
   }
 
   &__form {
     flex: 3;
 
-    .profile {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .table-profile {
+      width: 100%;
+      margin-top: 20px;
+      border: 3px solid var(--bg-btn-active);
+      border-top: 3px solid var(--bg-btn-active);
+      border-bottom: 3px solid var(--bg-btn-active);
+      border-radius: 5px;
 
-      &__btn {
-        width: 100px;
-        margin-left: auto;
+      &__th {
+        text-align: left;
+        padding: 10px 15px;
+        background: var(--text-darkgray);
+        color: var(--text-white);
+        font-size: 20px;
+      }
+
+      &__td {
+        text-align: left;
+        background: var(--text-lightgray);
+        padding: 10px 15px;
+        font-size: 20px;
+        vertical-align: top;
       }
     }
   }

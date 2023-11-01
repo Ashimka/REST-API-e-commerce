@@ -1,77 +1,76 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { createProfile, updateProfile } from "../../redux/features/userSlice";
+import ProfileEdit from "../../components/ProfileEdit/ProfileEdit";
+import { getOneUser } from "../../redux/features/userSlice";
 
 import "./profile.scss";
 import avatar from "../../static/img/avatar.jpg";
 
 const Profile = () => {
-  const [name, setName] = useState("");
-  const [addres, setAddres] = useState("");
-  const [phone, setPhone] = useState("");
-
+  const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
+  const { profile } = useSelector((state) => state.user);
+  const { isActivated } = useSelector((state) => state.persistedReducer.auth);
 
-  const handlerSubmit = (event) => {
-    event.preventDefault();
-
-    try {
-      const data = new FormData();
-
-      data.append("name", name);
-      data.append("addres", addres);
-      data.append("phone", phone);
-
-      // dispatch(createProfile(data));
-      dispatch(updateProfile(data));
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    if (!edit) {
+      dispatch(getOneUser());
     }
+  }, [dispatch, edit]);
+
+  const handleEditProfile = () => {
+    setEdit(true);
   };
 
-  const handleNameInput = (event) => setName(event.target.value);
-  const handleAddresInput = (event) => setAddres(event.target.value);
-  const handlePhoneInput = (event) => setPhone(event.target.value);
   return (
     <>
       <div className="profile">
         <div className="profile__info">
           <img src={avatar} alt="avatar" className="profile__info-avatar" />
-          <h2 className="profile__info-name">name</h2>
+          <h2 className="profile__info-name">
+            {profile?.email?.split("@")[0]}
+          </h2>
           <ul className="profile__nav">
-            <li className="profile__nav-item">Profile</li>
+            {profile?.role?.admin_role && (
+              <li className="profile__nav-item">Admin</li>
+            )}
+            <li className="profile__nav-item" onClick={handleEditProfile}>
+              Profile edit
+            </li>
             <li className="profile__nav-item">Orders</li>
           </ul>
         </div>
         <div className="profile__form">
-          <form action="" className="profile" onSubmit={handlerSubmit}>
-            <label htmlFor="name">Full name:</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              value={name}
-              onChange={handleNameInput}
-            />
-            <label htmlFor="phone">Phone:</label>
-            <input
-              type="text"
-              name="phone"
-              id="phone"
-              value={phone}
-              onChange={handlePhoneInput}
-            />
-            <label htmlFor="addres">Addres:</label>
-            <input
-              type="text"
-              name="addres"
-              id="addres"
-              value={addres}
-              onChange={handleAddresInput}
-            />
-            <button className="profile__btn">Edit</button>
-          </form>
+          {isActivated && <div>Not activated</div>}
+          {edit ? (
+            <ProfileEdit setEdit={setEdit} />
+          ) : (
+            <>
+              <table className="table-profile">
+                <tbody>
+                  <tr className="table-profile__tr">
+                    <th className="table-profile__th">Name</th>
+                    <td className="table-profile__td">
+                      {profile?.profile?.name}
+                    </td>
+                  </tr>
+                  <tr className="table-profile__tr">
+                    <th className="table-profile__th">Phone</th>
+                    <td className="table-profile__td">
+                      {profile?.profile?.phone}
+                    </td>
+                  </tr>
+                  <tr className="table-profile__tr">
+                    <th className="table-profile__th">Address</th>
+                    <td className="table-profile__td">
+                      {profile?.profile?.addres}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </>
+          )}
         </div>
       </div>
     </>

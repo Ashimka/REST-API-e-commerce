@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { refreshToken } from "../features/authSlice";
+import { logOut, refreshToken } from "../features/authSlice";
 const BASE_URL = "/api";
 
 let store;
@@ -37,9 +37,12 @@ axiosPrivate.interceptors.response.use(
     if (error?.response?.status === 403 && !prevRequest?.sent) {
       prevRequest.sent = true;
 
-      const nawAccessToken = await store.dispatch(refreshToken());
+      const newAccessToken = await store.dispatch(refreshToken());
+      if (!newAccessToken) {
+        await store.dispatch(logOut());
+      }
 
-      prevRequest.headers.Authorization = `Bearer ${nawAccessToken.payload}`;
+      prevRequest.headers.Authorization = `Bearer ${newAccessToken.payload}`;
 
       return axiosPrivate(prevRequest);
     }

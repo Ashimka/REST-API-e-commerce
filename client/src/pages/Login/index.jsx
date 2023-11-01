@@ -17,12 +17,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const user = await axios.post("/auth/login", { email, password });
+      const { data } = await axios.post("/auth/login", { email, password });
 
       dispatch(
         setCredentials({
           email,
-          accessToken: user.data.tokens.accessToken,
+          accessToken: data.tokens.accessToken,
+          isActivated: data.userAuth.isActivated,
         })
       );
       setEmail("");

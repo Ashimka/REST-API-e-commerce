@@ -3,7 +3,7 @@ import { axiosPrivate } from "../api/axios";
 
 export const refreshToken = createAsyncThunk("auth/refreshToken", async () => {
   const { data } = await axiosPrivate.get("/auth/refresh");
-  console.log(data);
+
   return data;
 });
 
@@ -11,6 +11,7 @@ const initialState = {
   user: null,
   token: null,
   isAuth: false,
+  isActivated: null,
 };
 
 const authSlice = createSlice({
@@ -18,10 +19,11 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      const { email, accessToken } = action.payload;
+      const { email, accessToken, isActivated } = action.payload;
 
       state.user = email;
       state.token = accessToken;
+      state.isActivated = isActivated;
       state.isAuth = true;
     },
 
@@ -29,6 +31,7 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.isAuth = false;
+      state.isActivated = null;
     },
   },
   extraReducers: (builder) => {
