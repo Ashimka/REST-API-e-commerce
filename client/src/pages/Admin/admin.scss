@@ -1,0 +1,23 @@
+.dashboard {
+  margin: 25px 0 0 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 25px;
+
+  &__title {
+    text-transform: uppercase;
+    font-size: 26px;
+    font-weight: 600;
+  }
+}
+
+.admin {
+  margin: var(--spacing-large) 0;
+  display: flex;
+  gap: 25px;
+
+  &__content {
+    flex: 8;
+  }
+}

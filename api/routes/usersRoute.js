@@ -17,8 +17,9 @@ router
     verifyRoles(ROLES_LIST.admin_role),
     UserController.deleteUser
   );
-router.get("/:id", UserController.getOneUser);
+
 router
+  .get("/profile", isAuth, UserController.getOneUser)
   .post("/profile", isAuth, UserController.userProfile)
   .patch("/profile", isAuth, UserController.userProfileUpdate);
 router.post("/order", isAuth, OrderController.newOrder);

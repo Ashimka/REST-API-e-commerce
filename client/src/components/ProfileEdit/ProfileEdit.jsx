@@ -43,7 +43,11 @@ const ProfileEdit = ({ setEdit }) => {
     }
   };
 
-  const handleCancelEdit = () => setEdit(false);
+  const handleCancelEdit = (event) => {
+    event.preventDefault();
+
+    setEdit(false);
+  };
 
   const handleNameInput = (event) => setName(event.target.value);
   const handleAddresInput = (event) => setAddres(event.target.value);

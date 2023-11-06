@@ -13,6 +13,7 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import { authReducer } from "../features/authSlice";
+import categoryReducer from "../features/categorySlice";
 import userReduser from "../features/userSlice";
 
 const persistConfig = {
@@ -30,6 +31,7 @@ export const store = configureStore({
   reducer: {
     persistedReducer,
     user: userReduser,
+    category: categoryReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

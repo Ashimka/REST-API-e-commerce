@@ -63,6 +63,7 @@ class AuthService {
         id: true,
         email: true,
         password: true,
+	isActivated: true,
         role: {
           select: {
             user_role: true,

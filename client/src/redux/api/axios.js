@@ -38,7 +38,8 @@ axiosPrivate.interceptors.response.use(
       prevRequest.sent = true;
 
       const newAccessToken = await store.dispatch(refreshToken());
-      if (!newAccessToken) {
+
+      if (!newAccessToken?.payload && newAccessToken?.error?.name) {
         await store.dispatch(logOut());
       }
 

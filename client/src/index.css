@@ -1,6 +1,7 @@
 :root {
   --bg-body: #ffffff;
   --bg-lightgray: #ebebeb;
+  --bg-gray: #8d8d8d;
 
   --spacing-small: 10px;
   --spacing-medium: 15px;
@@ -11,6 +12,7 @@
   --bg-btn-hover: #ffab08;
   --bg-btn-active: #f86310;
   --bg-btn-disabled: #f9f9f9;
+  --bg-btn-admin: #5932ea;
 
   --bg-icon: #ff7020;
 

@@ -1,0 +1,40 @@
+.admin-nav {
+  height: 100vh;
+  flex: 4;
+
+  &__menu {
+    margin-left: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    & > a {
+      color: #9197b3;
+    }
+  }
+  &__item {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 2px solid var(--bg-btn-admin);
+    border-radius: 5px;
+    cursor: pointer;
+
+    & > span {
+      font-weight: 600;
+    }
+    & > svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      background: var(--bg-btn-admin);
+      color: var(--text-white);
+    }
+  }
+  &__subitem {
+    display: none;
+  }
+}

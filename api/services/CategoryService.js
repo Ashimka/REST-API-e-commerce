@@ -13,9 +13,12 @@ class CategoryService {
   }
 
   async getOneCategory(cat) {
-    const category = await prisma.product.findMany({
+    const category = await prisma.category.findMany({
       where: {
-        category: cat,
+        name: cat,
+      },
+      select: {
+        name: true,
       },
     });
 
@@ -30,16 +33,30 @@ class CategoryService {
     const allCat = await prisma.category.findMany({
       select: {
         name: true,
+        id: true,
       },
     });
 
     return allCat;
   }
 
-  async removeCategory({ id }) {
-    await prisma.category.delete({
+  async removeCategory(id) {
+    const cat = await prisma.category.delete({
       where: { id },
     });
+
+    return cat;
+  }
+
+  async updateCategory(id, name) {
+    const category = await prisma.category.update({
+      where: { id },
+      data: {
+        name,
+      },
+    });
+
+    return category;
   }
 }
 export default new CategoryService();

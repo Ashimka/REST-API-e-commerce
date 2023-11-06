@@ -22,6 +22,15 @@ class UserService {
             admin_role: true,
           },
         },
+
+        profile: {
+          select: {
+            avatar: true,
+            name: true,
+            addres: true,
+            phone: true,
+          },
+        },
       },
     });
 

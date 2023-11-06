@@ -15,13 +15,35 @@ router
     verifyRoles(ROLES_LIST.admin_role),
     CategoryController.createCategory
   )
-  .get("/category", CategoryController.getAllCategory)
-  .delete(
+  .get(
     "/category",
     isAuth,
     verifyRoles(ROLES_LIST.admin_role),
+    CategoryController.getAllCategory
+  )
+  .get(
+    "/category/:cat",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    CategoryController.getOneCategory
+  )
+  .delete(
+    "/category/:id",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
     CategoryController.removeCategory
+  )
+  .patch(
+    "/category/:id",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    CategoryController.updateCategory
   );
-router.post("/products", ProductController.createProduct);
+router.post(
+  "/products",
+  isAuth,
+  verifyRoles(ROLES_LIST.admin_role),
+  ProductController.createProduct
+);
 
 export default router;
