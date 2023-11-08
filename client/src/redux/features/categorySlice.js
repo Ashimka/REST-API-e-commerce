@@ -43,7 +43,10 @@ export const updateCategory = createAsyncThunk(
   "category/updateCategory",
   async (name, { rejectWithValue }) => {
     try {
-      const { data } = await axiosPrivate.patch(`/admins/category`, name);
+      const { data } = await axiosPrivate.patch(
+        `/admins/category/${name.id}`,
+        name
+      );
 
       return data;
     } catch (error) {
@@ -136,7 +139,9 @@ export const categorySlice = createSlice({
       })
       .addCase(updateCategory.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.name.push(action.payload);
+        state.name = state.name.map((cat) =>
+          cat.id === action.payload.id ? action.payload : cat
+        );
       })
       .addCase(updateCategory.rejected, (state, action) => {
         state.isError = true;

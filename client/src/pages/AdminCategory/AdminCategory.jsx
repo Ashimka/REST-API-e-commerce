@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { FaRegEdit } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -8,6 +7,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 import NavAdmin from "../../components/NavAdmin/NavAdmin";
 import {
   createCategory,
+  updateCategory,
   allCategory,
   deleteCategory,
 } from "../../redux/features/categorySlice";
@@ -15,7 +15,9 @@ import {
 import "./adminCategory.scss";
 const AdminCategory = () => {
   const [categoryName, setCategoryName] = useState("");
+  const [editCategoryName, setEditCategoryName] = useState("");
   const [isDeleted, setIsDeteled] = useState(false);
+  const [isEdited, setIsEdited] = useState(false);
 
   const { name } = useSelector((state) => state.category);
 
@@ -26,6 +28,12 @@ const AdminCategory = () => {
       dispatch(allCategory());
     }
   }, [dispatch, categoryName]);
+
+  useEffect(() => {
+    if (isEdited) {
+      setCategoryName(editCategoryName.name);
+    }
+  }, [isEdited, editCategoryName]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,6 +51,24 @@ const AdminCategory = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleEdit = (cat) => {
+    setIsEdited(true);
+    setEditCategoryName(cat);
+  };
+
+  const handleUpdateCategory = (event) => {
+    event.preventDefault();
+
+    const data = {
+      id: editCategoryName.id,
+      name: categoryName,
+    };
+
+    dispatch(updateCategory(data));
+    setCategoryName("");
+    setIsEdited(false);
   };
 
   const handleDelete = (id) => {
@@ -64,7 +90,7 @@ const AdminCategory = () => {
       <div className="admin-page-category">
         <NavAdmin />
         <div className="admin-page-category__list">
-          <form className="admin-category" onSubmit={handleSubmit}>
+          <form className="admin-category">
             <label htmlFor="cat">
               Category:
               <input
@@ -76,18 +102,32 @@ const AdminCategory = () => {
                 onChange={handleNameInput}
               />
             </label>
-            <button className="admin-category__btn">Add</button>
+            {isEdited ? (
+              <button
+                className="admin-category__btn"
+                type="submit"
+                onClick={handleUpdateCategory}
+              >
+                Ok
+              </button>
+            ) : (
+              <button
+                className="admin-category__btn"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                Add
+              </button>
+            )}
           </form>
           <ul className="admin-category__list">
             {name?.map((cat) => (
               <li className="admin-category__item" key={cat.id}>
                 {cat.name}
-                <Link
-                  to={`/admins/category/${cat.id}`}
+                <FaRegEdit
                   className="category-icon-edit"
-                >
-                  <FaRegEdit />
-                </Link>
+                  onClick={() => handleEdit(cat)}
+                />
 
                 <TiDeleteOutline
                   className="category-icon-delete"
