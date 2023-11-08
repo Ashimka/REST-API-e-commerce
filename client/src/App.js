@@ -28,8 +28,6 @@ const App = () => {
           <Route element={<RequireAuth allowedRoles={[ROLES.admin]} />}>
             <Route path="/admins" element={<Admin />} />
             <Route path="/admins/category" element={<AdminCategory />} />
-            {/* <Route path="/admins/category/id:id" element={<AdminCatEdit />} />
-            <Route path="/admins/category/id:id" element={<AdminCatDelete />} /> */}
           </Route>
         </Route>
       </Routes>

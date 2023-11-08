@@ -15,12 +15,7 @@ router
     verifyRoles(ROLES_LIST.admin_role),
     CategoryController.createCategory
   )
-  .get(
-    "/category",
-    isAuth,
-    verifyRoles(ROLES_LIST.admin_role),
-    CategoryController.getAllCategory
-  )
+  .get("/category", CategoryController.getAllCategory)
   .get(
     "/category/:cat",
     isAuth,
