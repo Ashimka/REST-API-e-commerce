@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import RequireAuth from "./components/RequireAuth";
 import Admin from "./pages/Admin/Admin";
 import AdminCategory from "./pages/AdminCategory/AdminCategory";
+import AdminProducts from "./pages/AdminProducts/AdminProducts";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -28,6 +29,7 @@ const App = () => {
           <Route element={<RequireAuth allowedRoles={[ROLES.admin]} />}>
             <Route path="/admins" element={<Admin />} />
             <Route path="/admins/category" element={<AdminCategory />} />
+            <Route path="/admins/products" element={<AdminProducts />} />
           </Route>
         </Route>
       </Routes>

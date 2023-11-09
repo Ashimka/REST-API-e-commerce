@@ -1,0 +1,49 @@
+.admin-products-page {
+  margin-top: var(--spacing-large);
+  display: flex;
+  gap: var(--spacing-large);
+
+  &__list {
+    flex: 8;
+
+    .admin-products-create {
+      color: #9197b3;
+      font-weight: 600;
+
+      &__btn {
+        width: 122px;
+        background: white;
+        padding: 5px;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-small);
+        border: 2px solid var(--bg-btn-admin);
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background: var(--bg-btn-admin);
+          color: white;
+        }
+        & > svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .admin-create-product {
+        margin-top: var(--spacing-large);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-small);
+
+        &__input {
+          border: 2px solid var(--bg-btn-active);
+          border-radius: 5px;
+          padding: 5px;
+        }
+      }
+    }
+  }
+}

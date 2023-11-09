@@ -13,7 +13,7 @@ const NavAdmin = () => {
     <>
       <nav className="admin-nav">
         <ul className="admin-nav__menu">
-          <Link className="admin-nav__item">
+          <Link to={"/admins/products"} className="admin-nav__item">
             <BsCart3 /> <span>Products</span>
           </Link>
           <Link to={"/admins/category"} className="admin-nav__item">
