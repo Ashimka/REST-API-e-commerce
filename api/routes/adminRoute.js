@@ -34,11 +34,13 @@ router
     verifyRoles(ROLES_LIST.admin_role),
     CategoryController.updateCategory
   );
-router.post(
-  "/products",
-  isAuth,
-  verifyRoles(ROLES_LIST.admin_role),
-  ProductController.createProduct
-);
+router
+  .post(
+    "/products",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    ProductController.createProduct
+  )
+  .get("/products", ProductController.getAllProducts);
 
 export default router;

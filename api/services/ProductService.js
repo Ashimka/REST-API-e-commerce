@@ -5,7 +5,13 @@ const prisma = new PrismaClient();
 class ProductService {
   async createProduct({ name, description, image, price, in_stock, category }) {
     const newProduct = await prisma.product.create({
-      data: { name, description, image, price, in_stock },
+      data: {
+        name,
+        description,
+        image,
+        price: Number(price),
+        in_stock: Boolean(in_stock),
+      },
     });
 
     await prisma.product_Cat.create({

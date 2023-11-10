@@ -43,6 +43,24 @@
           border-radius: 5px;
           padding: 5px;
         }
+
+        select:invalid {
+          color: gray;
+        }
+
+        &__btn {
+          margin-left: auto;
+          padding: 5px;
+          border: 2px solid var(--bg-btn-admin);
+          border-radius: 5px;
+          color: #9197b3;
+          font-weight: 600;
+
+          &:hover {
+            background: var(--bg-btn-admin);
+            color: white;
+          }
+        }
       }
     }
   }
