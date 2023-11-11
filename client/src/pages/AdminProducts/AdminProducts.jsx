@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { FaRegEdit } from "react-icons/fa";
+import { TiDeleteOutline } from "react-icons/ti";
+
 import { allCategory } from "../../redux/features/categorySlice";
-import { createProduct, allProducts } from "../../redux/features/productSlice";
+import {
+  createProduct,
+  allProducts,
+  deleteProduct,
+} from "../../redux/features/productSlice";
 import NavAdmin from "../../components/NavAdmin/NavAdmin";
 
 import { IoMdAdd } from "react-icons/io";
@@ -13,6 +20,7 @@ import axios from "../../redux/api/axios";
 const AdminProducts = () => {
   const [isCreate, setIsCreate] = useState(false);
   const [isProducts, setIsProducts] = useState(true);
+  const [isDeleted, setIsDeteled] = useState(false);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -33,9 +41,12 @@ const AdminProducts = () => {
     if (isProducts) {
       dispatch(allProducts());
     }
-  }, [dispatch, isCreate, isProducts]);
 
-  // console.log(products);
+    if (isDeleted) {
+      dispatch(allProducts());
+      setIsDeteled(false);
+    }
+  }, [dispatch, isCreate, isProducts, isDeleted]);
 
   const handleCreate = () => {
     setIsCreate(true);
@@ -53,6 +64,18 @@ const AdminProducts = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleCancel = (event) => {
+    event.preventDefault();
+
+    setIsCreate(false);
+    setIsProducts(true);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteProduct(id));
+    setIsDeteled(true);
   };
 
   const handleSubmit = (event) => {
@@ -77,6 +100,7 @@ const AdminProducts = () => {
       setSelectCategory("");
 
       setIsCreate(false);
+      setIsProducts(true);
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +111,6 @@ const AdminProducts = () => {
       <div className="admin-products-page">
         <NavAdmin />
         <div className="admin-products-page__list">
-          AdminProducts
           <div className="admin-products-create">
             {!isCreate && (
               <div
@@ -99,12 +122,41 @@ const AdminProducts = () => {
               </div>
             )}
 
+            {isProducts && (
+              <>
+                <div className="admin-products-create__title">
+                  Products list
+                </div>
+                <ul className="admin-products">
+                  {products?.name?.products.map((item) => (
+                    <li key={item.id} className="admin-products__list">
+                      <img
+                        src={`${process.env.REACT_APP_BASE_URL}/upload${item.image}`}
+                        alt={item.name}
+                        className="admin-products__img"
+                      />
+                      <div className="admin-products__title">{item.name}</div>
+                      <div className="admin-products__setting">
+                        <FaRegEdit className="admin-products-icon-edit" />
+                        <TiDeleteOutline
+                          onClick={() => handleDelete(item.id)}
+                          className="admin-products-icon-delete"
+                        />
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
             {isCreate && (
               <div className="admin-products-create__form">
+                <div className="admin-products-create__title">
+                  Create product
+                </div>
                 <form
                   className="admin-create-product"
                   encType="multipart/form-data"
-                  onSubmit={handleSubmit}
                 >
                   <input
                     className="admin-create-product__input"
@@ -166,7 +218,21 @@ const AdminProducts = () => {
                     accept=".jpeg, .jpg, .png, .webp"
                     onChange={handleFile}
                   />
-                  <button className="admin-create-product__btn">Save</button>
+                  <div className="admin-create-product__buttons">
+                    <button
+                      onClick={handleCancel}
+                      className="admin-create-product__btn"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleSubmit}
+                      type="submit"
+                      className="admin-create-product__btn"
+                    >
+                      Save
+                    </button>
+                  </div>
                 </form>
               </div>
             )}

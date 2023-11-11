@@ -27,6 +27,19 @@ export const allProducts = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk(
+  "products/deleteProduct",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosPrivate.delete(`/admins/products/${id}`);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   isLoading: false,
   isError: false,
@@ -61,6 +74,22 @@ export const productSlice = createSlice({
         state.name = action.payload;
       })
       .addCase(allProducts.rejected, (state, action) => {
+        state.isError = true;
+        state.message = action.error;
+      })
+      // deleteProduct
+      .addCase(deleteProduct.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const { id } = action.payload;
+
+        if (id) {
+          state.name = state.name.filter((cat) => cat.id !== id);
+        }
+      })
+      .addCase(deleteProduct.rejected, (state, action) => {
         state.isError = true;
         state.message = action.error;
       });

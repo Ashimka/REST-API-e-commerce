@@ -49,5 +49,17 @@ class ProductController {
       next(error);
     }
   }
+
+  async deleteProduct(req, res, next) {
+    try {
+      const { id } = req.params;
+
+      const product = await ProductService.deleteProduct(String(id));
+
+      res.status(200).json({ message: "Product deleted!", product });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 export default new ProductController();

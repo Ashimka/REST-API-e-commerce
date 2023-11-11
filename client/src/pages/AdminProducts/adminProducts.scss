@@ -13,8 +13,8 @@
       &__btn {
         width: 122px;
         background: white;
-        padding: 5px;
         margin-left: auto;
+        padding: 5px;
         display: flex;
         align-items: center;
         gap: var(--spacing-small);
@@ -30,6 +30,10 @@
           width: 24px;
           height: 24px;
         }
+      }
+
+      &__title {
+        margin-bottom: var(--spacing-large);
       }
 
       .admin-create-product {
@@ -65,6 +69,12 @@
           color: black;
         }
 
+        &__buttons {
+          margin-left: auto;
+          display: flex;
+          gap: var(--spacing-small);
+        }
+
         &__btn {
           margin-left: auto;
           padding: 5px;
@@ -76,6 +86,48 @@
           &:hover {
             background: var(--bg-btn-admin);
             color: white;
+          }
+        }
+      }
+      .admin-products {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        overflow-y: auto;
+        gap: var(--spacing-small);
+
+        &__list {
+          height: 180px;
+          padding: var(--spacing-small);
+          border: 2px solid var(--bg-btn-admin);
+          border-radius: 5px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        &__img {
+          object-fit: cover;
+          width: 100%;
+          height: auto;
+        }
+        &__title {
+          color: black;
+        }
+        .admin-products__setting {
+          display: flex;
+          justify-content: space-between;
+
+          & > svg {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+          }
+
+          .admin-products-icon-edit {
+            color: green;
+          }
+          .admin-products-icon-delete {
+            color: red;
           }
         }
       }

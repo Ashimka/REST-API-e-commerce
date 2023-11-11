@@ -41,6 +41,12 @@ router
     verifyRoles(ROLES_LIST.admin_role),
     ProductController.createProduct
   )
-  .get("/products", ProductController.getAllProducts);
+  .get("/products", ProductController.getAllProducts)
+  .delete(
+    "/products/:id",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    ProductController.deleteProduct
+  );
 
 export default router;
