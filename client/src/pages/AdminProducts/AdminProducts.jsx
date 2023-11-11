@@ -8,6 +8,7 @@ import NavAdmin from "../../components/NavAdmin/NavAdmin";
 import { IoMdAdd } from "react-icons/io";
 
 import "./adminProducts.scss";
+import axios from "../../redux/api/axios";
 
 const AdminProducts = () => {
   const [isCreate, setIsCreate] = useState(false);
@@ -18,6 +19,7 @@ const AdminProducts = () => {
   const [price, setPrice] = useState("");
   const [isStock, setIsStock] = useState(false);
   const [selectCategory, setSelectCategory] = useState("");
+  const [image, setImage] = useState("");
 
   const { name } = useSelector((state) => state.category);
   const products = useSelector((state) => state.product);
@@ -33,11 +35,24 @@ const AdminProducts = () => {
     }
   }, [dispatch, isCreate, isProducts]);
 
-  console.log(products);
+  // console.log(products);
 
   const handleCreate = () => {
     setIsCreate(true);
     setIsProducts(false);
+  };
+
+  const handleFile = async (event) => {
+    try {
+      const fileDada = new FormData();
+      fileDada.append("image", event.target.files[0]);
+
+      const { data } = await axios.post("/upload", fileDada);
+
+      setImage(data.url);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -51,6 +66,7 @@ const AdminProducts = () => {
       data.append("price", Number(price));
       data.append("in_stock", Boolean(isStock));
       data.append("category", selectCategory);
+      data.append("image", image);
 
       dispatch(createProduct(data));
 
@@ -85,7 +101,11 @@ const AdminProducts = () => {
 
             {isCreate && (
               <div className="admin-products-create__form">
-                <form className="admin-create-product" onSubmit={handleSubmit}>
+                <form
+                  className="admin-create-product"
+                  encType="multipart/form-data"
+                  onSubmit={handleSubmit}
+                >
                   <input
                     className="admin-create-product__input"
                     type="text"
@@ -138,6 +158,14 @@ const AdminProducts = () => {
                         </option>
                       ))}
                   </select>
+                  <input
+                    className="admin-create-product__input"
+                    required
+                    name="image"
+                    type="file"
+                    accept=".jpeg, .jpg, .png, .webp"
+                    onChange={handleFile}
+                  />
                   <button className="admin-create-product__btn">Save</button>
                 </form>
               </div>
