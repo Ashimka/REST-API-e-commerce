@@ -16,7 +16,7 @@ const AdminProducts = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const [isStock, setIsStock] = useState("");
+  const [isStock, setIsStock] = useState(false);
   const [selectCategory, setSelectCategory] = useState("");
 
   const { name } = useSelector((state) => state.category);
@@ -110,14 +110,17 @@ const AdminProducts = () => {
                     value={price}
                     onChange={(event) => setPrice(event.target.value)}
                   />
-                  <input
-                    className="admin-create-product__input"
-                    type="text"
-                    placeholder="В наличии"
-                    required
-                    value={isStock}
-                    onChange={(event) => setIsStock(event.target.value)}
-                  />
+                  <label htmlFor="input-instock">
+                    В наличии
+                    <input
+                      className="admin-create-product__input"
+                      type="checkbox"
+                      id="input-instock"
+                      required
+                      value={isStock}
+                      onChange={(event) => setIsStock(event.target.value)}
+                    />
+                  </label>
                   <select
                     className="admin-create-product__input"
                     required

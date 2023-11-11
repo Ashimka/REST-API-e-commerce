@@ -43,9 +43,26 @@
           border-radius: 5px;
           padding: 5px;
         }
+        & > label {
+          margin-left: 10px;
+          color: gray;
+          font-weight: 400;
+        }
+
+        & > label > input {
+          margin-left: 10px;
+          width: 18px;
+          height: 18px;
+        }
 
         select:invalid {
           color: gray;
+        }
+        option[value=""][disabled] {
+          color: gray;
+        }
+        option {
+          color: black;
         }
 
         &__btn {
