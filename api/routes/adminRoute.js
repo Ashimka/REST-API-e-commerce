@@ -42,11 +42,23 @@ router
     ProductController.createProduct
   )
   .get("/products", ProductController.getAllProducts)
+  .get(
+    "/products/:id",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    ProductController.getOneProduct
+  )
   .delete(
     "/products/:id",
     isAuth,
     verifyRoles(ROLES_LIST.admin_role),
     ProductController.deleteProduct
+  )
+  .patch(
+    "/products/:id",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    ProductController.updateProduct
   );
 
 export default router;

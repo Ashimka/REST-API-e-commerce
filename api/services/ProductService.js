@@ -28,6 +28,21 @@ class ProductService {
     const products = await prisma.product.findMany({
       take: limit,
       skip: (page - 1) * limit,
+
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        image: true,
+        price: true,
+        in_stock: true,
+        discount: true,
+        category: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
 
     const quantityProducts = await prisma.product.count();
@@ -39,6 +54,13 @@ class ProductService {
   async getOneProduct(id) {
     const product = await prisma.product.findUnique({
       where: { id },
+      include: {
+        category: {
+          select: {
+            name: true,
+          },
+        },
+      },
     });
 
     return product;
@@ -50,6 +72,28 @@ class ProductService {
     });
 
     return product;
+  }
+
+  async updateProduct(id, name, description, image, price, in_stock, category) {
+    const productUpdate = await prisma.product.update({
+      where: { id },
+      data: {
+        name,
+        description,
+        image,
+        price: Number(price),
+        in_stock: Boolean(in_stock),
+      },
+    });
+
+    await prisma.product_Cat.update({
+      where: { productId: id },
+      data: {
+        name: category,
+      },
+    });
+
+    return productUpdate;
   }
 }
 

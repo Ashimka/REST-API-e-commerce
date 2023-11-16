@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import RequireAuth from "./components/RequireAuth";
 import Admin from "./pages/Admin/Admin";
 import AdminCategory from "./pages/AdminCategory/AdminCategory";
+import AdminEditProduct from "./pages/AdminEditProduct/AdminEditProduct";
 import AdminProducts from "./pages/AdminProducts/AdminProducts";
 
 import Home from "./pages/Home";
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/admins" element={<Admin />} />
             <Route path="/admins/category" element={<AdminCategory />} />
             <Route path="/admins/products" element={<AdminProducts />} />
+            <Route path="/admins/products/:id" element={<AdminEditProduct />} />
           </Route>
         </Route>
       </Routes>

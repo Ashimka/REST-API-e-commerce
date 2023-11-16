@@ -10,6 +10,7 @@ import errorHandler from "./middleware/errorMiddleware.js";
 
 const PORT = process.env.PORT || 8001;
 const __dirname = getDirname(import.meta.url);
+global.__basedir = __dirname;
 
 const app = express();
 

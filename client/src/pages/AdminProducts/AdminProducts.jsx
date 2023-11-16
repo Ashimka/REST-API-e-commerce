@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { FaRegEdit } from "react-icons/fa";
 import { TiDeleteOutline } from "react-icons/ti";
@@ -30,9 +31,10 @@ const AdminProducts = () => {
   const [image, setImage] = useState("");
 
   const { name } = useSelector((state) => state.category);
-  const products = useSelector((state) => state.product);
-  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.product);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     if (isCreate) {
       dispatch(allCategory());
@@ -128,7 +130,7 @@ const AdminProducts = () => {
                   Products list
                 </div>
                 <ul className="admin-products">
-                  {products?.name?.products.map((item) => (
+                  {products?.products?.map((item) => (
                     <li key={item.id} className="admin-products__list">
                       <img
                         src={`${process.env.REACT_APP_BASE_URL}/upload${item.image}`}
@@ -137,7 +139,12 @@ const AdminProducts = () => {
                       />
                       <div className="admin-products__title">{item.name}</div>
                       <div className="admin-products__setting">
-                        <FaRegEdit className="admin-products-icon-edit" />
+                        <FaRegEdit
+                          className="admin-products-icon-edit"
+                          onClick={() =>
+                            navigate(`/admins/products/${item.id}`)
+                          }
+                        />
                         <TiDeleteOutline
                           onClick={() => handleDelete(item.id)}
                           className="admin-products-icon-delete"
@@ -234,6 +241,13 @@ const AdminProducts = () => {
                     </button>
                   </div>
                 </form>
+                <div className="admin-products-create__out-image">
+                  <img
+                    src={`${process.env.REACT_APP_BASE_URL}/upload${image}`}
+                    alt={title}
+                    className="admin-products-image"
+                  />
+                </div>
               </div>
             )}
           </div>

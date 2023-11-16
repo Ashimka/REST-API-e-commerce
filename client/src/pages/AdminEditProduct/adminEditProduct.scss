@@ -1,0 +1,89 @@
+.admin-edit-product-page {
+  margin: var(--spacing-large) 0;
+  min-height: 100vh;
+  display: flex;
+  gap: var(--spacing-large);
+
+  &__form {
+    flex: 8;
+
+    .admin-edit-product {
+      margin-top: var(--spacing-large);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-small);
+
+      &__input {
+        border: 2px solid var(--bg-btn-active);
+        border-radius: 5px;
+        padding: 5px;
+      }
+      & > label {
+        margin-left: 10px;
+        color: gray;
+        font-weight: 400;
+      }
+
+      & > label > input {
+        margin-left: 10px;
+        width: 18px;
+        height: 18px;
+      }
+
+      select:invalid {
+        color: gray;
+      }
+      option[value=""][disabled] {
+        color: gray;
+      }
+      option {
+        color: black;
+      }
+
+      &__buttons {
+        margin-left: auto;
+        display: flex;
+        gap: var(--spacing-small);
+      }
+
+      &__btn {
+        margin-left: auto;
+        padding: 5px;
+        border: 2px solid var(--bg-btn-admin);
+        border-radius: 5px;
+        color: #9197b3;
+        font-weight: 600;
+
+        &:hover {
+          background: var(--bg-btn-admin);
+          color: white;
+        }
+      }
+    }
+  }
+
+  &__image {
+    width: 250px;
+    position: relative;
+
+    .admin-edit-product-icon > svg {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      color: tomato;
+      cursor: pointer;
+
+      &:hover {
+        color: red;
+      }
+    }
+
+    .admin-edit-product-img {
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+    }
+  }
+}

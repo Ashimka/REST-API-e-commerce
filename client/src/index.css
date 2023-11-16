@@ -102,4 +102,12 @@ h6 {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-medium);
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  margin: var(--spacing-large) 0;
+  flex: 1 1 auto;
+  min-height: 100vh;
 }

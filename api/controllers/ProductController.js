@@ -54,9 +54,30 @@ class ProductController {
     try {
       const { id } = req.params;
 
-      const product = await ProductService.deleteProduct(String(id));
+      const product = await ProductService.deleteProduct(id);
 
       res.status(200).json({ message: "Product deleted!", product });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async updateProduct(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { name, description, image, price, in_stock, category } = req.body;
+
+      const updateProduct = await ProductService.updateProduct(
+        id,
+        name,
+        description,
+        image,
+        price,
+        in_stock,
+        category
+      );
+
+      res.status(200).json(updateProduct);
     } catch (error) {
       next(error);
     }
