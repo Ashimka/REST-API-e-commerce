@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { TiDeleteOutline } from "react-icons/ti";
 
 import NavAdmin from "../../components/NavAdmin/NavAdmin";
+import Modal from "../../components/Modal/Modal";
 import axios from "../../redux/api/axios";
 
 import { oneProduct, updateProduct } from "../../redux/features/productSlice";
@@ -19,7 +20,9 @@ const AdminEditProduct = () => {
   const [isStock, setIsStock] = useState(false);
   const [selectCategory, setSelectCategory] = useState("");
   const [oldImage, setOldImage] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
+  const [removeImage, setRemoveImage] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -71,16 +74,28 @@ const AdminEditProduct = () => {
       const name = file.split("").splice(1).join("");
 
       await axios.delete(`/file/${name}`);
-      setOldImage("");
+      setOldImage(null);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      let newImage;
+
+      if (removeImage) {
+        await handleDeleteImage(oldImage);
+        newImage = null;
+        setOldImage(null);
+      }
+
+      if (oldImage) {
+        newImage = oldImage;
+      }
+
       const updateData = {
         id,
         name: title,
@@ -88,8 +103,9 @@ const AdminEditProduct = () => {
         price: Number(price),
         in_stock: Boolean(isStock),
         category: selectCategory,
-        image: oldImage ? oldImage : image,
+        image: newImage ? newImage : image,
       };
+
       dispatch(updateProduct(updateData));
 
       navigate("/admins/products");
@@ -100,8 +116,15 @@ const AdminEditProduct = () => {
 
   const handleCancel = (event) => {
     event.preventDefault();
+
     navigate("/admins/products");
   };
+
+  const handleClickRemove = (value) => {
+    setModalOpen(false);
+    setRemoveImage(value);
+  };
+
   return (
     <>
       <div className="admin-edit-product-page">
@@ -186,7 +209,7 @@ const AdminEditProduct = () => {
             </div>
           </form>
           <div className="admin-edit-product-page__image">
-            {oldImage && (
+            {oldImage && !removeImage && (
               <>
                 <img
                   src={`${process.env.REACT_APP_BASE_URL}/upload${oldImage}`}
@@ -194,13 +217,16 @@ const AdminEditProduct = () => {
                   className="admin-edit-product-img"
                 />
                 <div className="admin-edit-product-icon">
-                  <TiDeleteOutline
-                    onClick={() => handleDeleteImage(oldImage)}
-                  />
+                  <TiDeleteOutline onClick={() => setModalOpen(true)} />
                 </div>
               </>
             )}
           </div>
+          {modalOpen && (
+            <Modal confirmedModal={handleClickRemove}>
+              <span>Delete image???</span>
+            </Modal>
+          )}
         </div>
       </div>
     </>

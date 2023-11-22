@@ -10,18 +10,20 @@ import {
   createProduct,
   allProducts,
   deleteProduct,
+  uploadFile,
+  removeFile,
 } from "../../redux/features/productSlice";
+
 import NavAdmin from "../../components/NavAdmin/NavAdmin";
 
 import { IoMdAdd } from "react-icons/io";
 
 import "./adminProducts.scss";
-import axios from "../../redux/api/axios";
 
 const AdminProducts = () => {
   const [isCreate, setIsCreate] = useState(false);
   const [isProducts, setIsProducts] = useState(true);
-  const [isDeleted, setIsDeteled] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -29,12 +31,15 @@ const AdminProducts = () => {
   const [isStock, setIsStock] = useState(false);
   const [selectCategory, setSelectCategory] = useState("");
   const [image, setImage] = useState("");
+  const [imageUpload, setImageUpload] = useState(false);
 
   const { name } = useSelector((state) => state.category);
   const { products } = useSelector((state) => state.product);
+  const fileUpload = useSelector((state) => state.product);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
     if (isCreate) {
       dispatch(allCategory());
@@ -46,23 +51,33 @@ const AdminProducts = () => {
 
     if (isDeleted) {
       dispatch(allProducts());
-      setIsDeteled(false);
+      setIsDeleted(false);
     }
-  }, [dispatch, isCreate, isProducts, isDeleted]);
+
+    if (imageUpload) {
+      setImage(fileUpload?.imageUrl);
+    }
+  }, [
+    dispatch,
+    isCreate,
+    isProducts,
+    isDeleted,
+    imageUpload,
+    fileUpload?.imageUrl,
+  ]);
 
   const handleCreate = () => {
     setIsCreate(true);
     setIsProducts(false);
   };
 
-  const handleFile = async (event) => {
+  const handleFile = (event) => {
     try {
       const fileDada = new FormData();
       fileDada.append("image", event.target.files[0]);
 
-      const { data } = await axios.post("/upload", fileDada);
-
-      setImage(data.url);
+      dispatch(uploadFile(fileDada));
+      setImageUpload(true);
     } catch (error) {
       console.log(error);
     }
@@ -73,11 +88,32 @@ const AdminProducts = () => {
 
     setIsCreate(false);
     setIsProducts(true);
+
+    if (image) {
+      hendleRemoveImage(image);
+    }
   };
 
   const handleDelete = (id) => {
     dispatch(deleteProduct(id));
-    setIsDeteled(true);
+    setIsDeleted(true);
+
+    const file = products?.products;
+
+    const img = file
+      .find((elem) => elem.id === id)
+      .image.split("")
+      .splice(1)
+      .join("");
+
+    hendleRemoveImage(img);
+  };
+
+  const hendleRemoveImage = (img) => {
+    dispatch(removeFile(img));
+
+    setImage(null);
+    setImageUpload(false);
   };
 
   const handleSubmit = (event) => {
@@ -100,9 +136,11 @@ const AdminProducts = () => {
       setPrice("");
       setIsStock("");
       setSelectCategory("");
+      setImage(null);
 
       setIsCreate(false);
       setIsProducts(true);
+      setImageUpload(false);
     } catch (error) {
       console.log(error);
     }
@@ -241,13 +279,21 @@ const AdminProducts = () => {
                     </button>
                   </div>
                 </form>
-                <div className="admin-products-create__out-image">
-                  <img
-                    src={`${process.env.REACT_APP_BASE_URL}/upload${image}`}
-                    alt={title}
-                    className="admin-products-image"
-                  />
-                </div>
+                {image && (
+                  <>
+                    <div className="admin-products-create__out-image">
+                      <img
+                        src={`${process.env.REACT_APP_BASE_URL}/upload${image}`}
+                        alt={title}
+                        className="admin-products-image"
+                      />
+                      <TiDeleteOutline
+                        onClick={() => hendleRemoveImage(image)}
+                        className="icon-delete"
+                      />
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </div>

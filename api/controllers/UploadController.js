@@ -2,7 +2,7 @@ class UploadController {
   createFile(req, res) {
     try {
       if (req.file) {
-        res.json({
+        return res.json({
           url: `/${req.file.filename}`,
         });
       }

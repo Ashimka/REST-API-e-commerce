@@ -8,7 +8,7 @@ class DeleteController {
     try {
       await unlink(resolve(`${__basedir}/upload`, fileName));
 
-      res.status(200).send({ message: "File is deleted!" });
+      res.status(200).send({ message: "File is deleted!", fileName });
     } catch (error) {
       res.status(500).send({ message: `Could not delete the file. ${error}` });
     }

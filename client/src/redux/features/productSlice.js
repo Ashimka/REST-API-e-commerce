@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axiosPrivate } from "../api/axios";
+import axios, { axiosPrivate } from "../api/axios";
 
 export const createProduct = createAsyncThunk(
   "products/createProduct",
@@ -69,10 +69,37 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
+export const uploadFile = createAsyncThunk(
+  "products/uploadFile",
+  async (file, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post("/upload", file);
+
+      return data.url;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const removeFile = createAsyncThunk(
+  "products/removeFile",
+  async (file, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.delete(`/file/${file}`);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   isLoading: false,
   isError: false,
   products: [],
+  imageUrl: null,
   message: "",
 };
 
@@ -89,6 +116,7 @@ export const productSlice = createSlice({
       .addCase(createProduct.fulfilled, (state, action) => {
         state.isLoading = false;
         state.products.products.push(action.payload);
+        state.imageUrl = null;
       })
       .addCase(createProduct.rejected, (state, action) => {
         state.isError = true;
@@ -145,6 +173,24 @@ export const productSlice = createSlice({
       })
       .addCase(updateProduct.rejected, (state, action) => {
         state.isLoading = false;
+        state.isError = true;
+        state.message = action.error;
+      })
+      // uploadFile
+      .addCase(uploadFile.fulfilled, (state, action) => {
+        state.isError = false;
+        state.imageUrl = action.payload;
+      })
+      .addCase(uploadFile.rejected, (state, action) => {
+        state.isError = true;
+        state.message = action.error;
+      })
+      // removeFile
+      .addCase(removeFile.fulfilled, (state) => {
+        state.isError = false;
+        state.imageUrl = null;
+      })
+      .addCase(removeFile.rejected, (state, action) => {
         state.isError = true;
         state.message = action.error;
       });
