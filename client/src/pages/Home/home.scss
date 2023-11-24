@@ -4,13 +4,14 @@
     font-size: 40px;
     font-weight: 600;
   }
+  .main-wrapper {
+    max-width: 1200px;
+  }
 
   &__products {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-content: stretch;
-    flex-wrap: wrap;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(230px, 1fr));
+    grid-template-rows: auto;
+    gap: var(--spacing-small);
   }
 }

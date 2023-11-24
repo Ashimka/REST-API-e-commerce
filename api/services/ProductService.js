@@ -45,7 +45,8 @@ class ProductService {
       },
     });
 
-    const quantityProducts = await prisma.product.count();
+    const quantityProducts = products.length;
+
     const totelPages = Math.ceil(quantityProducts / Number.parseInt(limit));
 
     return { totelPages, quantityProducts, products };

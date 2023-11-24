@@ -133,7 +133,7 @@ const AdminProducts = () => {
                 </ul>
                 {modalOpen && (
                   <Modal confirmedModal={handleClickRemove}>
-                    <span>Delete image???</span>
+                    <span>Delete product???</span>
                   </Modal>
                 )}
               </>
