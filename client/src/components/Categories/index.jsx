@@ -5,8 +5,8 @@ import { allCategory } from "../../redux/features/categorySlice";
 
 import "./categories.scss";
 
-const Categories = () => {
-  const [isActiveItem, setIsActiveItem] = useState("01");
+const Categories = ({ setTitle }) => {
+  const [isActiveItem, setIsActiveItem] = useState(1);
 
   const { name } = useSelector((state) => state.category);
   const dispatch = useDispatch();
@@ -15,8 +15,9 @@ const Categories = () => {
     dispatch(allCategory());
   }, [dispatch]);
 
-  const handleActive = (index) => {
-    setIsActiveItem(index);
+  const handleActive = (cat) => {
+    setIsActiveItem(cat.id);
+    setTitle(cat.name);
   };
 
   return (
@@ -31,7 +32,7 @@ const Categories = () => {
                   : "category__item"
               }
               key={item.id}
-              onClick={() => handleActive(item.id)}
+              onClick={() => handleActive(item)}
             >
               {item.name}
             </li>

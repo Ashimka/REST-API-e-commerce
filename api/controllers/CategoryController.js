@@ -15,11 +15,11 @@ class CategoryController {
 
   async getOneCategory(req, res, next) {
     try {
-      const { cat } = req.params;
+      const { category } = req.params;
 
-      const category = await CategoryService.getOneCategory(cat);
+      const cat = await CategoryService.getOneCategory(category);
 
-      return res.status(200).json(category);
+      return res.status(200).json(cat);
     } catch (error) {
       next(error);
     }

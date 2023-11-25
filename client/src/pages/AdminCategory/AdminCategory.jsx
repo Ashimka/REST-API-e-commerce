@@ -54,6 +54,10 @@ const AdminCategory = () => {
   };
 
   const handleEdit = (cat) => {
+    if (cat.name === "Все") {
+      setIsEdited(false);
+      return;
+    }
     setIsEdited(true);
     setEditCategoryName(cat);
   };
@@ -71,8 +75,11 @@ const AdminCategory = () => {
     setIsEdited(false);
   };
 
-  const handleDelete = (id) => {
-    dispatch(deleteCategory(id));
+  const handleDelete = (cat) => {
+    if (cat.name === "Все") {
+      return;
+    }
+    dispatch(deleteCategory(cat.id));
     setIsDeteled(true);
   };
 
@@ -131,7 +138,7 @@ const AdminCategory = () => {
 
                 <TiDeleteOutline
                   className="category-icon-delete"
-                  onClick={() => handleDelete(cat.id)}
+                  onClick={() => handleDelete(cat)}
                 />
               </li>
             ))}

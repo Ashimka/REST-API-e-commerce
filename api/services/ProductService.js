@@ -43,6 +43,11 @@ class ProductService {
           },
         },
       },
+      orderBy: {
+        category: {
+          name: "asc",
+        },
+      },
     });
 
     const quantityProducts = products.length;

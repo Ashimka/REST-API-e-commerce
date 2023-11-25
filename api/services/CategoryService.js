@@ -13,12 +13,19 @@ class CategoryService {
   }
 
   async getOneCategory(cat) {
-    const category = await prisma.category.findMany({
+    const category = await prisma.product_Cat.findMany({
       where: {
         name: cat,
       },
       select: {
-        name: true,
+        product: {
+          select: {
+            name: true,
+            description: true,
+            price: true,
+            image: true,
+          },
+        },
       },
     });
 
@@ -34,6 +41,9 @@ class CategoryService {
       select: {
         name: true,
         id: true,
+      },
+      orderBy: {
+        id: "asc",
       },
     });
 
