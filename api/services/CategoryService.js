@@ -1,12 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 import ApiError from "../error/apiError.js";
+import { textTranslit } from "../options/textTranslit.js";
 
 const prisma = new PrismaClient();
 
 class CategoryService {
   async createCategory({ name }) {
     const newCat = await prisma.category.create({
-      data: { name },
+      data: { name, latin: textTranslit(name) },
     });
 
     return newCat;
@@ -20,6 +21,7 @@ class CategoryService {
       select: {
         product: {
           select: {
+            id: true,
             name: true,
             description: true,
             price: true,

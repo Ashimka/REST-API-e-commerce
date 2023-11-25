@@ -82,6 +82,7 @@ model Product_Cat {
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  latin String @unique
 }

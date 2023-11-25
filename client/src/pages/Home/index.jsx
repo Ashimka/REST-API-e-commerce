@@ -20,7 +20,7 @@ const Home = () => {
     if (!title || title === "Все") {
       dispatch(allProducts());
     }
-    if (title) {
+    if (title !== "Все") {
       dispatch(filterCategory(title));
     }
   }, [dispatch, title]);
@@ -34,15 +34,16 @@ const Home = () => {
         <div className="main__title">{title}</div>
         <div className="main-wrapper">
           <div className="main__products">
-            {data?.map((item) => (
-              <div className="products-list" key={item.id}>
-                <Product
-                  image={item.image}
-                  name={item.name}
-                  price={item.price}
-                />
-              </div>
-            ))}
+            {data &&
+              data?.map((item) => (
+                <React.Fragment key={item.id}>
+                  <Product
+                    image={item.image}
+                    name={item.name}
+                    price={item.price}
+                  />
+                </React.Fragment>
+              ))}
           </div>
         </div>
       </div>
