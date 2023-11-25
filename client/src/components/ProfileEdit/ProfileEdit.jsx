@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateProfile } from "../../redux/features/userSlice";
+import { createProfile, updateProfile } from "../../redux/features/userSlice";
 import "./profileEdit.scss";
 
 const ProfileEdit = ({ setEdit }) => {
@@ -30,11 +30,16 @@ const ProfileEdit = ({ setEdit }) => {
     event.preventDefault();
 
     try {
-      const data = new FormData();
+      const data = {
+        name,
+        addres,
+        phone,
+      };
 
-      data.append("name", name);
-      data.append("addres", addres);
-      data.append("phone", phone);
+      if (!profile?.profile) {
+        dispatch(createProfile(data));
+        setEdit(false);
+      }
 
       dispatch(updateProfile(data));
       setEdit(false);
