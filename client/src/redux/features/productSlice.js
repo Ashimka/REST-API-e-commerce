@@ -27,6 +27,22 @@ export const allProducts = createAsyncThunk(
   }
 );
 
+export const filterCategory = createAsyncThunk(
+  "products/filterCategory",
+  async (cat, thunkAPI) => {
+    try {
+      if (cat === "Все") {
+        return;
+      }
+      const { data } = await axios.get(`/products/category/${cat}`);
+
+      return data;
+    } catch (error) {
+      thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
   async (id, { rejectWithValue }) => {
@@ -131,6 +147,18 @@ export const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(allProducts.rejected, (state, action) => {
+        state.isError = true;
+        state.message = action.error;
+      })
+      // filterCategory
+      .addCase(filterCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(filterCategory.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.products = action.payload;
+      })
+      .addCase(filterCategory.rejected, (state, action) => {
         state.isError = true;
         state.message = action.error;
       })

@@ -55,19 +55,6 @@ export const updateCategory = createAsyncThunk(
   }
 );
 
-export const oneCategory = createAsyncThunk(
-  "category/oneCategory",
-  async (cat, thunkAPI) => {
-    try {
-      const { data } = await axiosPrivate.get(`/admins/category/${cat}`);
-
-      return data;
-    } catch (error) {
-      thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
 const initialState = {
   isLoading: false,
   isError: false,
@@ -121,18 +108,7 @@ export const categorySlice = createSlice({
         state.isError = true;
         state.message = action.error;
       })
-      // oneCategory
-      .addCase(oneCategory.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(oneCategory.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.name = action.payload;
-      })
-      .addCase(oneCategory.rejected, (state, action) => {
-        state.isError = true;
-        state.message = action.error;
-      })
+
       // updateCategory
       .addCase(updateCategory.pending, (state) => {
         state.isLoading = true;

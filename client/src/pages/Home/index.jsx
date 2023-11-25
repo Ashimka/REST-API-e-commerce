@@ -1,14 +1,14 @@
 import React from "react";
 
-import { allProducts } from "../../redux/features/productSlice";
+import { allProducts, filterCategory } from "../../redux/features/productSlice";
+// import { oneCategory } from "../../redux/features/categorySlice";
 
 import Product from "../../components/Product";
 import Categories from "../../components/Categories";
 
 import "./home.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 
 const Home = () => {
   const [title, setTitle] = useState("");
@@ -17,8 +17,15 @@ const Home = () => {
   const { products } = useSelector((state) => state.product);
 
   useEffect(() => {
-    dispatch(allProducts());
-  }, [dispatch]);
+    if (!title || title === "Все") {
+      dispatch(allProducts());
+    }
+    if (title) {
+      dispatch(filterCategory(title));
+    }
+  }, [dispatch, title]);
+
+  const data = products?.products || products;
 
   return (
     <>
@@ -27,13 +34,14 @@ const Home = () => {
         <div className="main__title">{title}</div>
         <div className="main-wrapper">
           <div className="main__products">
-            {products?.products?.map((item) => (
-              <Product
-                key={item.id}
-                image={item.image}
-                name={item.name}
-                price={item.price}
-              />
+            {data?.map((item) => (
+              <div className="products-list" key={item.id}>
+                <Product
+                  image={item.image}
+                  name={item.name}
+                  price={item.price}
+                />
+              </div>
             ))}
           </div>
         </div>

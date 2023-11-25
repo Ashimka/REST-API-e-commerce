@@ -32,8 +32,9 @@ class CategoryService {
     if (!category.length) {
       throw ApiError.notFound("Не найдено");
     }
+    const products = category.map((item) => item.product);
 
-    return category;
+    return products;
   }
 
   async getAllCategory() {
