@@ -34,6 +34,11 @@
       line-height: 26px;
       font-weight: 600;
     }
+    .logo-subtitle {
+      @media (max-width: 975px) {
+        display: none;
+      }
+    }
   }
 
   .phone-top {

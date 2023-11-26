@@ -1,12 +1,19 @@
 .category {
   margin-top: var(--spacing-medium);
   background-color: var(--bg-lightgray);
+  max-width: 1200px;
 
   &__list {
     height: 50px;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: var(--spacing-small);
     align-items: center;
+    flex-shrink: 1;
+
+    @media (max-width: 1050px) {
+      overflow: auto;
+    }
   }
 
   &__item {
@@ -15,6 +22,7 @@
     font-size: 16px;
     cursor: pointer;
     border-radius: 16px;
+    flex-shrink: 0;
     &:hover {
       outline: 1px solid var(--bg-btn-active);
     }
