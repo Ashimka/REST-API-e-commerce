@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { textTranslit } from "../options/textTranslit.js";
 
 const prisma = new PrismaClient();
 
@@ -16,7 +17,7 @@ class ProductService {
 
     await prisma.product_Cat.create({
       data: {
-        name: category,
+        name: textTranslit(category),
         productId: newProduct.id,
       },
     });

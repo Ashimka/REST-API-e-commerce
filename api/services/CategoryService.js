@@ -43,6 +43,7 @@ class CategoryService {
     const allCat = await prisma.category.findMany({
       select: {
         name: true,
+        latin: true,
         id: true,
       },
       orderBy: {
