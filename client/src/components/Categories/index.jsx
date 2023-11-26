@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { allCategory } from "../../redux/features/categorySlice";
-import { filterCategory } from "../../redux/features/productSlice";
 
 import "./categories.scss";
 
-const Categories = ({ setTitle }) => {
+const Categories = ({ setTitle, setUrlParams }) => {
   const [isActiveItem, setIsActiveItem] = useState(1);
 
   const { name } = useSelector((state) => state.category);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,13 +19,7 @@ const Categories = ({ setTitle }) => {
   const handleActive = (cat) => {
     setIsActiveItem(cat.id);
     setTitle(cat.name);
-    filterProducts(cat.name);
-  };
-
-  const filterProducts = (title) => {
-    if (title) {
-      dispatch(filterCategory(title));
-    }
+    setUrlParams(cat.latin);
   };
 
   return (

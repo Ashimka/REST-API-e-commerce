@@ -31,7 +31,7 @@ export const filterCategory = createAsyncThunk(
   "products/filterCategory",
   async (cat, thunkAPI) => {
     try {
-      if (cat === "Все") {
+      if (cat === "Vse") {
         return;
       }
       const { data } = await axios.get(`/products/category/${cat}`);
