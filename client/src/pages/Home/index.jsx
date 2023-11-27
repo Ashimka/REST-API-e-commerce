@@ -52,7 +52,7 @@ const Home = () => {
                   />
                 </React.Fragment>
               ))}
-            {!data && <span>Не найдено</span>}
+            {!data && <span>Не найдено...</span>}
           </div>
         </div>
       </div>
