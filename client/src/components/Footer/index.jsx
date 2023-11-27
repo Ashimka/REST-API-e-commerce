@@ -13,7 +13,6 @@ const Footer = () => {
           <div className="footer__logo">
             <img src={logo} alt="logo" className="footer-img" />
           </div>
-          <div className="footer__copyright">КИОТО - &copy; 2023</div>
         </div>
         <div className="footer__center">
           <span className="footer__title">Номер для заказа</span>
@@ -35,6 +34,7 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+      <div className="footer-copyright">КИОТО - &copy; 2023</div>
     </>
   );
 };
