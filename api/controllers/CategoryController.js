@@ -15,7 +15,7 @@ class CategoryController {
 
   async getOneCategory(req, res, next) {
     try {
-      const { category } = req.params;
+      const category = req.query.category;
 
       const cat = await CategoryService.getOneCategory(category);
 
