@@ -6,7 +6,7 @@ import { allCategory } from "../../redux/features/categorySlice";
 import "./categories.scss";
 
 const Categories = ({ setTitle, setUrlParams }) => {
-  const [isActiveItem, setIsActiveItem] = useState(1);
+  const [isActiveItem, setIsActiveItem] = useState("Vse");
 
   const { name } = useSelector((state) => state.category);
 
@@ -17,9 +17,12 @@ const Categories = ({ setTitle, setUrlParams }) => {
   }, [dispatch]);
 
   const handleActive = (cat) => {
-    setIsActiveItem(cat.id);
-    setTitle(cat.name);
+    setIsActiveItem(cat.latin);
     setUrlParams(cat.latin);
+    if (cat.name === "Все") {
+      return setTitle("");
+    }
+    setTitle(cat.name);
   };
 
   return (
@@ -29,7 +32,7 @@ const Categories = ({ setTitle, setUrlParams }) => {
           {name?.map((item) => (
             <li
               className={
-                isActiveItem === item.id
+                isActiveItem === item.latin
                   ? "category__item category-active"
                   : "category__item"
               }

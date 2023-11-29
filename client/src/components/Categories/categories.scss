@@ -5,11 +5,11 @@
 
   &__list {
     height: 50px;
+    margin-left: var(--spacing-medium);
     display: flex;
     justify-content: flex-start;
     gap: var(--spacing-small);
     align-items: center;
-    flex-shrink: 1;
 
     @media (max-width: 1050px) {
       overflow: auto;

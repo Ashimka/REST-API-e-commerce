@@ -22,7 +22,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/products/category/:category" element={<Home />} />
+          <Route path="/products" element={<Home />} />
           <Route path="/auth/login" element={<Login />} />
 
           <Route element={<RequireAuth allowedRoles={[ROLES.user]} />}>

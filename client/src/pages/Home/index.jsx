@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import qs from "qs";
 
 import { allProducts, filterCategory } from "../../redux/features/productSlice";
 
@@ -6,9 +9,6 @@ import Product from "../../components/Product";
 import Categories from "../../components/Categories";
 
 import "./home.scss";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [title, setTitle] = useState("");
@@ -16,22 +16,30 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const query = qs.stringify({
+    category: urlParams,
+  });
+
   const { products } = useSelector((state) => state.product);
 
   useEffect(() => {
-    if (!title || title === "Все") {
+    if (!title) {
       dispatch(allProducts());
     }
-    if (title !== "Все") {
-      dispatch(filterCategory(urlParams));
+  }, [dispatch, title]);
+
+  useEffect(() => {
+    if (title) {
+      dispatch(filterCategory(query));
+      navigate(`/products?${query}`);
     }
-    if (urlParams) {
-      if (urlParams === "Vse") {
-        return navigate("/");
-      }
-      navigate(`/products/category/${urlParams}`);
+  }, [dispatch, title, query, navigate]);
+
+  useEffect(() => {
+    if (urlParams === "Vse") {
+      navigate("/");
     }
-  }, [dispatch, navigate, title, urlParams]);
+  }, [urlParams, navigate]);
 
   const data = products?.products || products;
 

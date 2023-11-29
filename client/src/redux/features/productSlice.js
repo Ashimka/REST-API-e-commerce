@@ -34,7 +34,7 @@ export const filterCategory = createAsyncThunk(
       if (cat === "Vse") {
         return;
       }
-      const { data } = await axios.get(`/products/category/${cat}`);
+      const { data } = await axios.get(`/products?${cat}`);
 
       return data;
     } catch (error) {
