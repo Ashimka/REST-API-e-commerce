@@ -7,6 +7,8 @@ import { getOneUser } from "../../redux/features/userSlice";
 
 import "./profile.scss";
 import avatar from "../../static/img/avatar.jpg";
+import axios from "../../redux/api/axios";
+import { logOut } from "../../redux/features/authSlice";
 
 const Profile = () => {
   const [edit, setEdit] = useState(false);
@@ -22,6 +24,11 @@ const Profile = () => {
 
   const handleEditProfile = () => {
     setEdit(true);
+  };
+
+  const handleLogout = async () => {
+    await axios.get("/auth/logout");
+    dispatch(logOut());
   };
 
   return (
@@ -42,6 +49,9 @@ const Profile = () => {
               Profile edit
             </li>
             <li className="profile__nav-item">Orders</li>
+            <li className="profile__nav-item" onClick={handleLogout}>
+              Exit
+            </li>
           </ul>
         </div>
         <div className="profile__form">

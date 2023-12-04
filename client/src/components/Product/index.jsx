@@ -1,8 +1,24 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
+import { addProduct } from "../../redux/features/cartSlice";
 
 import "./product.scss";
 
-const Product = ({ image, name, price }) => {
+const Product = ({ id, image, name, price }) => {
+  const dispatch = useDispatch();
+
+  const addProductCart = () => {
+    const item = {
+      id,
+      name,
+      price,
+      image,
+    };
+
+    dispatch(addProduct(item));
+  };
+
   return (
     <>
       <div className="product">
@@ -15,7 +31,9 @@ const Product = ({ image, name, price }) => {
         </div>
         <div className="product__title">{name}</div>
         <div className="product__price">{price} ₽</div>
-        <button className="product__btn">Добавить</button>
+        <button className="product__btn" onClick={addProductCart}>
+          Добавить
+        </button>
       </div>
     </>
   );

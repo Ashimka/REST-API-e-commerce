@@ -1,28 +1,21 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { BsCart3 } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
 
 import logo from "../../static/img/logo.png";
 
-import axios from "../../redux/api/axios";
-import { logOut } from "../../redux/features/authSlice";
-
 import "./header.scss";
 
 const Header = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const isAuth = useSelector((state) => state.persistedReducer.auth.isAuth);
+  const { items } = useSelector((state) => state.cart);
+  const cart = Boolean(items.length);
 
-  const cart = false;
-
-  const handleLogout = async () => {
-    await axios.get("/auth/logout");
-    dispatch(logOut());
-  };
   return (
     <>
       <header className="header">
@@ -54,7 +47,9 @@ const Header = () => {
           <div className="header__right">
             <div className="header__basket">
               <BsCart3 className="header__basket-icons" />
-              {cart && <span className="header__basket-cart">4</span>}
+              {cart && (
+                <span className="header__basket-cart">{items.length}</span>
+              )}
             </div>
             <div className="header__auth">
               {isAuth ? (
@@ -63,12 +58,6 @@ const Header = () => {
                     <Link to={"/users/profile"}>
                       <AiOutlineUser />
                     </Link>
-                    <button
-                      className="header__logout-btn"
-                      onClick={handleLogout}
-                    >
-                      LOGOUT
-                    </button>
                   </div>
                 </>
               ) : (

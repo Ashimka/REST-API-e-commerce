@@ -16,6 +16,7 @@ import { authReducer } from "../features/authSlice";
 import categoryReducer from "../features/categorySlice";
 import userReducer from "../features/userSlice";
 import productReducer from "../features/productSlice";
+import cartReducer from "../features/cartSlice";
 
 const persistConfig = {
   key: "auth",
@@ -34,6 +35,7 @@ export const store = configureStore({
     user: userReducer,
     category: categoryReducer,
     product: productReducer,
+    cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

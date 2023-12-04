@@ -54,6 +54,7 @@ const Home = () => {
               data?.map((item) => (
                 <React.Fragment key={item.id}>
                   <Product
+                    id={item.id}
                     image={item.image}
                     name={item.name}
                     price={item.price}
