@@ -1,15 +1,4 @@
 .header {
-  &__top-bg {
-    height: 300px;
-    background-image: url(../../static/img/bg-header-kioto.jpg);
-    background-size: cover;
-    background-position: center 65%;
-    background-repeat: no-repeat;
-
-    @media (max-width: 424px) {
-      display: none;
-    }
-  }
   .header-wrapper {
     margin-top: var(--spacing-small);
     display: flex;

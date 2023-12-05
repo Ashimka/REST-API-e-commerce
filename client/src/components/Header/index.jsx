@@ -16,12 +16,13 @@ const Header = () => {
   const { items } = useSelector((state) => state.cart);
   const cart = Boolean(items.length);
 
+  const count = items.reduce((sum, obj) => {
+    return obj.count + sum;
+  }, 0);
+
   return (
     <>
       <header className="header">
-        <div className="header__top">
-          <div className="header__top-bg"></div>
-        </div>
         <div className="header-wrapper">
           <div className="header__left">
             <div className="header__logo">
@@ -47,18 +48,14 @@ const Header = () => {
           <div className="header__right">
             <div className="header__basket">
               <BsCart3 className="header__basket-icons" />
-              {cart && (
-                <span className="header__basket-cart">{items.length}</span>
-              )}
+              {cart && <span className="header__basket-cart">{count}</span>}
             </div>
             <div className="header__auth">
               {isAuth ? (
                 <>
-                  <div className="header__logout">
-                    <Link to={"/users/profile"}>
-                      <AiOutlineUser />
-                    </Link>
-                  </div>
+                  <Link to={"/users/profile"}>
+                    <AiOutlineUser className="header__profile" />
+                  </Link>
                 </>
               ) : (
                 <button

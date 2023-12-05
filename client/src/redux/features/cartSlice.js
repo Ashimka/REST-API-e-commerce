@@ -12,7 +12,15 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addProduct(state, action) {
-      state.items.push(action.payload);
+      const findItem = state.items.find((obj) => obj.id === action.payload.id);
+      findItem
+        ? findItem.count++
+        : state.items.push({ ...action.payload, count: 1 });
+
+      state.totalPrice = state.items.reduce((sum, obj) => {
+        return obj.price * obj.count + sum;
+      }, 0);
+
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
   },

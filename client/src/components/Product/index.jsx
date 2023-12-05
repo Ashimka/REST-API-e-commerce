@@ -14,6 +14,7 @@ const Product = ({ id, image, name, price }) => {
       name,
       price,
       image,
+      count: 1,
     };
 
     dispatch(addProduct(item));
