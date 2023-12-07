@@ -6,6 +6,7 @@ import Admin from "./pages/Admin/Admin";
 import AdminCategory from "./pages/AdminCategory/AdminCategory";
 import AdminEditProduct from "./pages/AdminEditProduct/AdminEditProduct";
 import AdminProducts from "./pages/AdminProducts/AdminProducts";
+import CartPage from "./pages/CartPage/CartPage";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -27,6 +28,7 @@ const App = () => {
 
           <Route element={<RequireAuth allowedRoles={[ROLES.user]} />}>
             <Route path="/users/profile" element={<Profile />} />
+            <Route path="/users/cart" element={<CartPage />} />
           </Route>
           <Route element={<RequireAuth allowedRoles={[ROLES.admin]} />}>
             <Route path="/admins" element={<Admin />} />

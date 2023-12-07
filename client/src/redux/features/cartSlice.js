@@ -4,7 +4,11 @@ const initialState = {
   items: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
     : [],
-  totalPrice: 0,
+  totalPrice: localStorage.getItem("cartItems")
+    ? JSON.parse(localStorage.getItem("cartItems")).reduce((sum, obj) => {
+        return obj.price * obj.count + sum;
+      }, 0)
+    : 0,
 };
 
 export const cartSlice = createSlice({

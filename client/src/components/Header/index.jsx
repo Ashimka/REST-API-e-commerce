@@ -46,7 +46,10 @@ const Header = () => {
             </div>
           </div>
           <div className="header__right">
-            <div className="header__basket">
+            <div
+              className="header__basket"
+              onClick={() => navigate("/users/cart")}
+            >
               <BsCart3 className="header__basket-icons" />
               {cart && <span className="header__basket-cart">{count}</span>}
             </div>

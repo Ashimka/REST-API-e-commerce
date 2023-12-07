@@ -29,8 +29,19 @@
     background-color: var(--bg-btn-default2);
     width: 100%;
     height: 40px;
+    border: 2px solid var(--bg-btn-default);
     border-radius: 12px;
     transition: all 0.4s ease;
+
+    & > span {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      font-size: 16px;
+      background: var(--bg-btn-default2);
+      border-radius: 50%;
+      color: var(--bg-btn-default);
+    }
 
     &:hover {
       background-color: var(--bg-btn-hover);
