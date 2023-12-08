@@ -1,0 +1,109 @@
+.cart-page {
+  margin: 0 auto;
+  max-width: 700px;
+
+  &__header {
+    margin: var(--spacing-large) 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .clear {
+      border: 2px solid var(--bg-btn-default);
+      border-radius: 5px;
+      padding: 5px;
+      color: var(--text-darkgray);
+      cursor: pointer;
+
+      &:hover {
+        color: var(--text-black);
+      }
+
+      @media (max-width: 375px) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-large);
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-small);
+
+      &__image img {
+        width: 137px;
+        height: 120px;
+        border-radius: 8px;
+
+        @media (max-width: 425px) {
+          width: 64px;
+          height: 52px;
+        }
+      }
+
+      &__desc {
+        margin-right: auto;
+        min-width: 130px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-medium);
+      }
+      &__quantity {
+        background: var(--bg-lightgray);
+        border-radius: 8px;
+        display: flex;
+
+        .increment,
+        .decrement {
+          cursor: pointer;
+        }
+        .increment:hover {
+          background: var(--bg-gray);
+          color: var(--text-white);
+          border-radius: 0 8px 8px 0;
+        }
+        .decrement:hover {
+          background: var(--bg-gray);
+          color: var(--text-white);
+          border-radius: 8px 0 0 8px;
+        }
+
+        & > span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 30px;
+          height: 30px;
+
+          @media (max-width: 375px) {
+            width: 25px;
+            height: 25px;
+          }
+        }
+      }
+    }
+  }
+  &__footer {
+    margin-top: var(--spacing-large);
+
+    .total-order {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-medium);
+    }
+    .checkout {
+      background: var(--bg-btn-default);
+      color: var(--text-white);
+      border-radius: 8px;
+      padding: 9px;
+    }
+  }
+}

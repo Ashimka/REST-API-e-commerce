@@ -37,10 +37,10 @@ const CartPage = () => {
         </div>
         <div className="cart-page__footer">
           <div className="total-order">
-            <span>Итого:</span>
+            <span>Итого</span>
             <span>{totalPrice} ₽</span>
           </div>
-          <botton className="checkout">Оформить заказ</botton>
+          <button className="checkout">Оформить заказ</button>
         </div>
       </div>
     </>
