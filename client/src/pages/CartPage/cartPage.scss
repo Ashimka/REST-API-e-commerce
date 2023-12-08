@@ -33,10 +33,13 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-large);
+
     .cart-item {
+      padding: var(--spacing-small);
       display: flex;
       align-items: center;
       gap: var(--spacing-small);
+      box-shadow: 0px 0px 10px 5px rgba(255, 112, 32, 0.4);
 
       &__image img {
         width: 137px;
