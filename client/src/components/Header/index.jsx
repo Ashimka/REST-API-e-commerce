@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import { BsCart3 } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
+import { IoLogInOutline } from "react-icons/io5";
 
 import logo from "../../static/img/logo.png";
 
@@ -46,29 +47,23 @@ const Header = () => {
             </div>
           </div>
           <div className="header__right">
-            <div
-              className="header__basket"
+            <BsCart3
+              className="header__basket-icons"
               onClick={() => navigate("/users/cart")}
-            >
-              <BsCart3 className="header__basket-icons" />
-              {cart && <span className="header__basket-cart">{count}</span>}
-            </div>
-            <div className="header__auth">
-              {isAuth ? (
-                <>
-                  <Link to={"/users/profile"}>
-                    <AiOutlineUser className="header__profile" />
-                  </Link>
-                </>
-              ) : (
-                <button
-                  onClick={() => navigate("/auth/login")}
-                  className="header__login-btn"
-                >
-                  LOGIN
-                </button>
-              )}
-            </div>
+            />
+            {cart && <span className="header__basket-cart">{count}</span>}
+
+            {isAuth ? (
+              <>
+                <Link to={"/users/profile"}>
+                  <AiOutlineUser className="header__profile" />
+                </Link>
+              </>
+            ) : (
+              <Link to={"/auth/login"}>
+                <IoLogInOutline />
+              </Link>
+            )}
           </div>
         </div>
       </header>

@@ -64,68 +64,25 @@
   }
 
   &__right {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-medium);
-  }
-
-  &__basket {
     position: relative;
-    width: auto;
-    padding: var(--spacing-small);
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: var(--spacing-small);
-    border-radius: var(--spacing-small);
-    cursor: pointer;
-  }
+    gap: var(--spacing-medium);
 
-  &__basket-icons {
-    height: 28px;
-    width: 28px;
-    color: var(--bg-btn-default);
+    & > svg,
+    & > a > svg {
+      height: 28px;
+      width: 28px;
+      color: var(--bg-btn-default);
+      cursor: pointer;
+    }
   }
 
   &__basket-cart {
     position: absolute;
-    top: 5px;
-    left: 40px;
+    top: -5px;
+    left: 30px;
     color: var(--bg-btn-active);
     font-size: 14px;
     font-weight: 600;
-  }
-
-  &__login-btn {
-    font-size: 20px;
-    background-color: #ffffff;
-    padding: 5px;
-    border: 2px solid var(--bg-btn-default);
-    border-radius: 10px;
-    transition: all 0.4s ease;
-
-    &:hover {
-      background-color: var(--bg-btn-default);
-      color: #ffffff;
-    }
-  }
-
-  &__logout {
-    display: flex;
-    gap: 10px;
-
-    &-btn {
-      padding: 5px;
-      font-size: 14px;
-      font-weight: 600;
-      background: var(--bg-gray);
-      color: var(--text-white);
-      border-radius: 10px;
-      transition: all 0.4s ease;
-
-      &:hover {
-        background: var(--bg-btn-default);
-      }
-    }
   }
 }
