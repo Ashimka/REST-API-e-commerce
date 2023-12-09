@@ -15,7 +15,7 @@ router.use("/admins", adminRoute);
 router.use("/products", productRoute);
 router.use("/upload", uploadRoute);
 router.use("/file", deleteFileRoute);
-// router.use("/orders", order);
+
 // router.use("/cart", cart);
 
 export default router;

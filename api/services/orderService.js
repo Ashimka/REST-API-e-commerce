@@ -3,32 +3,24 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 class OrderService {
-  async newOrder({
-    detailsOrder,
-    isDelivered,
-    userId,
-    total_price,
-    quantity,
-    productId,
-  }) {
+  async newOrder({ detailsOrder, totalPrice, userId }) {
     const newOrder = await prisma.order.create({
       data: {
         detailsOrder,
-        isDelivered,
+        totalPrice,
         userId,
       },
     });
 
-    await prisma.order_Detail.create({
-      data: {
-        total_price,
-        quantity,
-        orderId: newOrder.id,
-        productId,
-      },
+    return newOrder;
+  }
+
+  async userOreders(userId) {
+    const orders = await prisma.order.findMany({
+      where: { userId },
     });
 
-    return newOrder;
+    return orders;
   }
 }
 
