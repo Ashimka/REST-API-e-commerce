@@ -7,6 +7,8 @@ import {
   removeProduct,
 } from "../../redux/features/cartSlice";
 
+import { createOrder } from "../../redux/features/orderSlice";
+
 import "./cartPage.scss";
 
 const CartPage = () => {
@@ -22,6 +24,15 @@ const CartPage = () => {
 
   const decrementProduct = (id) => {
     dispatch(removeProduct({ id }));
+  };
+
+  const orderСheckout = () => {
+    dispatch(
+      createOrder({
+        detailsOrder: localStorage.getItem("cartItems"),
+        totalPrice,
+      })
+    );
   };
 
   return (
@@ -74,7 +85,9 @@ const CartPage = () => {
                 <span>Итого</span>
                 <span>{totalPrice} ₽</span>
               </div>
-              <button className="checkout">Оформить заказ</button>
+              <button className="checkout" onClick={orderСheckout}>
+                Оформить заказ
+              </button>
             </div>
           </>
         ) : (

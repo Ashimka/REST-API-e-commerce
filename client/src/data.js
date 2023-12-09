@@ -73,7 +73,7 @@ export const products = [
     image:
       "https://sun9-68.userapi.com/impg/glWeGirh5V4HanGJvxykFS-Hv6L7D7AWOxiGOg/8qflg3qx480.jpg?size=807x538&quality=96&sign=1d3fe7e0e2c0385456b7b78f77b68086&c_uniq_tag=BeCqy9aRwP7-l1QxCnuQelr2Plg-UPKld4yxpY3GNQ0&type=none",
     description:
-      "игровая креветка в темпуре, авокадо, лосось, сливочный сыр. 8 шт. 245 гр",
+      "Тигровая креветка в темпуре, авокадо, лосось, сливочный сыр. 8 шт. 245 гр",
     price: 400,
     category: "Пицца",
   },
