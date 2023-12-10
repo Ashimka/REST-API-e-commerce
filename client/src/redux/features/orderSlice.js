@@ -14,11 +14,11 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-export const listUserOrders = createAsyncThunk(
-  "order/listUserOrders",
+export const userOrders = createAsyncThunk(
+  "order/userOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = axiosPrivate.get("/users/orderlist");
+      const { data } = await axiosPrivate.get("/users/orderlist");
 
       return data;
     } catch (error) {
@@ -46,9 +46,21 @@ export const orderSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.orderList = action.payload;
+        state.orderList.push(action.payload);
       })
       .addCase(createOrder.rejected, (state, action) => {
+        state.isError = true;
+        state.message = action.error;
+      })
+      // userOrder
+      .addCase(userOrders.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(userOrders.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.orderList = action.payload;
+      })
+      .addCase(userOrders.rejected, (state, action) => {
         state.isError = true;
         state.message = action.error;
       });

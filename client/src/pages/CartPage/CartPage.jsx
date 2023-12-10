@@ -29,10 +29,14 @@ const CartPage = () => {
   const orderСheckout = () => {
     dispatch(
       createOrder({
-        detailsOrder: localStorage.getItem("cartItems"),
+        detailsOrder: JSON.parse(localStorage.getItem("cartItems"))
+          .map((item) => item.id)
+          .toString(),
         totalPrice,
       })
     );
+    navigate("/users/orderlist");
+    dispatch(clearCart());
   };
 
   return (

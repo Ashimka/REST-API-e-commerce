@@ -48,7 +48,9 @@ const Profile = () => {
             <li className="profile__nav-item" onClick={handleEditProfile}>
               Profile edit
             </li>
-            <li className="profile__nav-item">Orders</li>
+            <Link to={"/users/orderlist"}>
+              <li className="profile__nav-item">Orders</li>
+            </Link>
             <li className="profile__nav-item" onClick={handleLogout}>
               Exit
             </li>
