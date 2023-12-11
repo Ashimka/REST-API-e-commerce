@@ -6,10 +6,19 @@ class OrderService {
   async newOrder({ detailsOrder, totalPrice, userId }) {
     const newOrder = await prisma.order.create({
       data: {
-        detailsOrder,
         totalPrice,
         userId,
       },
+    });
+
+    JSON.parse(detailsOrder).map(async (item) => {
+      await prisma.order_details.create({
+        data: {
+          orderId: newOrder.id,
+          productId: item.id,
+          count: item.count,
+        },
+      });
     });
 
     return newOrder;
@@ -22,6 +31,8 @@ class OrderService {
 
     return orders;
   }
+
+  async detailsOrder() {}
 }
 
 export default new OrderService();

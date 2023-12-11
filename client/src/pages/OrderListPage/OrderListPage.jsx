@@ -44,19 +44,21 @@ const OrderListPage = () => {
                   </div>
                 </div>
                 <div className="order__body">
-                  <div className="order-id">Заказ № {obj.id}</div>
+                  <div className="order-id">№ {obj.id}</div>
                   <div className="delivered">
-                    Заказ
+                    Статус
                     <span className={obj.isConfirmed ? "ischeckout" : ""}>
                       {obj.isConfirmed ? "подтвержден" : "в обработке"}
                     </span>
                   </div>
-                  <div className="delivered">
-                    Заказ
-                    <span className={obj.isDelivered ? "ischeckout" : ""}>
-                      {obj.isDelivered ? "доставлен" : "в пути"}
-                    </span>
-                  </div>
+                  {obj.isConfirmed && (
+                    <div className="delivered">
+                      Доставка
+                      <span className={obj.isDelivered ? "ischeckout" : ""}>
+                        {obj.isDelivered ? "доставлен" : "в пути"}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             ))

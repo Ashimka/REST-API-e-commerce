@@ -108,8 +108,8 @@ const AdminProducts = () => {
                   Products list
                 </div>
                 <ul className="admin-products">
-                  {products?.products?.map((item) => (
-                    <li key={item.id} className="admin-products__list">
+                  {products?.products?.map((item, id) => (
+                    <li key={id} className="admin-products__list">
                       <img
                         src={`${process.env.REACT_APP_BASE_URL}/upload${item.image}`}
                         alt={item.name}

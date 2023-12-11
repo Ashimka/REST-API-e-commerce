@@ -34,17 +34,22 @@ export const cartSlice = createSlice({
     },
     removeProduct(state, action) {
       const findItem = state.items.find((obj) => obj.id === action.payload.id);
+
       if (findItem) {
-        if (findItem.count < 1) {
+        findItem.count--;
+
+        if (findItem.count === 0) {
           const product = state.items.filter(
             (obj) => obj.id !== action.payload.id
           );
 
+          state.items = product;
+          state.totalPrice = state.items.reduce((sum, obj) => {
+            return obj.price * obj.count + sum;
+          }, 0);
           return localStorage.setItem("cartItems", JSON.stringify(product));
         }
-        findItem.count--;
       }
-
       state.totalPrice = state.items.reduce((sum, obj) => {
         return obj.price * obj.count + sum;
       }, 0);

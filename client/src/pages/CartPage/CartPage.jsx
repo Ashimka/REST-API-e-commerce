@@ -27,11 +27,17 @@ const CartPage = () => {
   };
 
   const orderСheckout = () => {
+    const order = JSON.parse(localStorage.getItem("cartItems"))?.map((item) => {
+      return {
+        id: item.id,
+        count: item.count,
+      };
+    });
+    console.log(JSON.stringify(order));
+
     dispatch(
       createOrder({
-        detailsOrder: JSON.parse(localStorage.getItem("cartItems"))
-          .map((item) => item.id)
-          .toString(),
+        detailsOrder: JSON.stringify(order),
         totalPrice,
       })
     );

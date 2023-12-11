@@ -9,9 +9,12 @@
   border: 2px solid burlywood;
   border-radius: 16px;
 
-  .product-img {
+  &__image {
     width: 100%;
-    border-radius: 16px;
+    .product-img {
+      width: 100%;
+      border-radius: 16px;
+    }
   }
 
   &__title {
