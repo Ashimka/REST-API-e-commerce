@@ -24,5 +24,6 @@ router
   .patch("/profile", isAuth, UserController.userProfileUpdate);
 router.post("/order", isAuth, OrderController.newOrder);
 router.get("/orderlist", isAuth, OrderController.userOrders);
+router.get("/orderdetails/:id", isAuth, OrderController.orderDetails);
 
 export default router;

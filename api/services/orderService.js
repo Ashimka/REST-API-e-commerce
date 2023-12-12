@@ -32,7 +32,24 @@ class OrderService {
     return orders;
   }
 
-  async detailsOrder() {}
+  async detailsOrder(id) {
+    const order = await prisma.order_details.findMany({
+      where: { orderId: Number(id) },
+      select: {
+        count: true,
+        product: {
+          select: {
+            name: true,
+            description: true,
+            image: true,
+            price: true,
+          },
+        },
+      },
+    });
+
+    return order;
+  }
 }
 
 export default new OrderService();
