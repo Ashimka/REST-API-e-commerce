@@ -35,6 +35,7 @@ class OrderService {
   async detailsOrder(id) {
     const order = await prisma.order_details.findMany({
       where: { orderId: Number(id) },
+
       select: {
         count: true,
         product: {
@@ -48,7 +49,30 @@ class OrderService {
       },
     });
 
-    return order;
+    const orderDetails = await prisma.order.findUnique({
+      where: {
+        id: Number(id),
+      },
+
+      select: {
+        created_at: true,
+        isDelivered: true,
+        totalPrice: true,
+        user: {
+          select: {
+            profile: {
+              select: {
+                name: true,
+                addres: true,
+                phone: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return { ...orderDetails, order };
   }
 }
 

@@ -27,9 +27,24 @@ export const userOrders = createAsyncThunk(
   }
 );
 
+export const orderDetails = createAsyncThunk(
+  "order/orderDetails",
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axiosPrivate.get(`/users/orderdetails/${id}`);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
   isLoading: false,
   orderList: [],
+  detailsOrder: [],
+  detailsOrderDate: "",
   isError: false,
   message: "",
 };
@@ -61,6 +76,19 @@ export const orderSlice = createSlice({
         state.orderList = action.payload;
       })
       .addCase(userOrders.rejected, (state, action) => {
+        state.isError = true;
+        state.message = action.error;
+      })
+      // orderDetails
+      .addCase(orderDetails.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(orderDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.detailsOrderDate = action.payload;
+        state.detailsOrder = action.payload;
+      })
+      .addCase(orderDetails.rejected, (state, action) => {
         state.isError = true;
         state.message = action.error;
       });

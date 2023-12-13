@@ -1,17 +1,23 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { userOrders } from "../../redux/features/orderSlice";
 
 import "./orderListPage.scss";
 const OrderListPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { orderList, isLoading } = useSelector((state) => state.order);
 
   useEffect(() => {
     dispatch(userOrders());
   }, [dispatch]);
+
+  const orderDetails = (id) => {
+    navigate(`/users/orderdetails/${id}`);
+  };
 
   return (
     <>
@@ -21,12 +27,15 @@ const OrderListPage = () => {
           <span>{orderList.length}</span>
         </div>
         <div className="order-page__body">
-          {isLoading ? (
-            <p>Loading</p>
-          ) : (
-            orderList?.map((obj, id) => (
+          {isLoading && <p>Loading</p>}
+
+          {orderList &&
+            orderList.map((obj, id) => (
               <div key={id} className="order">
-                <div className="order__header">
+                <div
+                  className="order__header"
+                  onClick={() => orderDetails(obj.id)}
+                >
                   <div className="title">
                     Заказ от
                     <span>
@@ -61,8 +70,7 @@ const OrderListPage = () => {
                   )}
                 </div>
               </div>
-            ))
-          )}
+            ))}
         </div>
       </div>
     </>
