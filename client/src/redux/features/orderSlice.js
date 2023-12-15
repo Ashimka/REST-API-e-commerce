@@ -44,7 +44,6 @@ const initialState = {
   isLoading: false,
   orderList: [],
   detailsOrder: [],
-  detailsOrderDate: "",
   isError: false,
   message: "",
 };
@@ -85,7 +84,6 @@ export const orderSlice = createSlice({
       })
       .addCase(orderDetails.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.detailsOrderDate = action.payload;
         state.detailsOrder = action.payload;
       })
       .addCase(orderDetails.rejected, (state, action) => {

@@ -1,0 +1,113 @@
+.order-details {
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+
+    .back-list-orders {
+      background: none;
+      width: 150px;
+      color: blue;
+    }
+    .title {
+      font-size: 28px;
+      font-weight: 600;
+    }
+    .date {
+      font-size: 16px;
+    }
+  }
+
+  &__body {
+    margin-top: var(--spacing-large);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-large);
+
+    .order-list {
+      padding: var(--spacing-small);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-small);
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px 2px rgba(255, 112, 32, 0.4);
+
+      @media (max-width: 688px) {
+      }
+
+      &__image {
+        flex: 1;
+        width: 84px;
+        height: 84px;
+        object-fit: contain;
+
+        @media (max-width: 426px) {
+          width: 64px;
+          height: 64px;
+        }
+      }
+      &__body {
+        flex: 9;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        @media (max-width: 688px) {
+          flex: 6;
+        }
+
+        .title {
+          font-weight: 600;
+        }
+        .desc {
+          font-size: 16px;
+          color: rgba(0, 26, 52, 0.6);
+        }
+      }
+      &__price {
+        flex: 1;
+        @media (max-width: 548px) {
+          flex: 2;
+        }
+
+        .price {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  &__delivery {
+    margin-top: var(--spacing-large);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+
+    .delivery {
+      & > a {
+        display: block;
+        width: 150px;
+        margin: 5px 0;
+        color: var(--bg-btn-active);
+      }
+      &__title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: var(--spacing-medium);
+      }
+      &__info {
+        margin: 5px 0;
+        font-size: 18px;
+        color: rgba(0, 26, 52, 0.6);
+      }
+      &__total {
+        font-size: 20px;
+        font-weight: 600;
+
+        & > span {
+          margin-right: var(--spacing-small);
+        }
+      }
+    }
+  }
+}
