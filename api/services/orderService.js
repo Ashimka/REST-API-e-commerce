@@ -74,6 +74,16 @@ class OrderService {
 
     return { ...orderDetails, order };
   }
+
+  async allOrders() {
+    const orders = await prisma.order.findMany({
+      orderBy: {
+        id: "desc",
+      },
+    });
+
+    return orders;
+  }
 }
 
 export default new OrderService();

@@ -33,7 +33,6 @@ const CartPage = () => {
         count: item.count,
       };
     });
-    console.log(JSON.stringify(order));
 
     dispatch(
       createOrder({

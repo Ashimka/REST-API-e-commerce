@@ -1,5 +1,6 @@
 import { Router } from "express";
 import CategoryController from "../controllers/CategoryController.js";
+import OrderController from "../controllers/OrderController.js";
 import ProductController from "../controllers/ProductController.js";
 import { isAuth } from "../middleware/authMiddleware.js";
 import verifyRoles from "../middleware/verifyRoles.js";
@@ -59,6 +60,12 @@ router
     isAuth,
     verifyRoles(ROLES_LIST.admin_role),
     ProductController.updateProduct
+  )
+  .get(
+    "/orders",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    OrderController.allOrders
   );
 
 export default router;
