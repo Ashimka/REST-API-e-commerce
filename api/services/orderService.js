@@ -84,6 +84,28 @@ class OrderService {
 
     return orders;
   }
+
+  async confirmedOrders() {
+    const orders = await prisma.order.findMany({
+      where: {
+        isConfirmed: true,
+        isDelivered: false,
+      },
+    });
+
+    return orders;
+  }
+
+  async notConfirmedOrders() {
+    const orders = await prisma.order.findMany({
+      where: {
+        isConfirmed: false,
+        isDelivered: false,
+      },
+    });
+
+    return orders;
+  }
 }
 
 export default new OrderService();

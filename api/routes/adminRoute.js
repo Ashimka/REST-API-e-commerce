@@ -60,12 +60,25 @@ router
     isAuth,
     verifyRoles(ROLES_LIST.admin_role),
     ProductController.updateProduct
-  )
+  );
+router
   .get(
     "/orders",
     isAuth,
     verifyRoles(ROLES_LIST.admin_role),
     OrderController.allOrders
+  )
+  .get(
+    "/orders-confirm",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    OrderController.confirmedOrder
+  )
+  .get(
+    "/orders-noconfirm",
+    isAuth,
+    verifyRoles(ROLES_LIST.admin_role),
+    OrderController.notConfirmedOrder
   );
 
 export default router;

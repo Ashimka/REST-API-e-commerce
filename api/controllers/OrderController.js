@@ -51,6 +51,25 @@ class OrderController {
       next(error);
     }
   }
+
+  async confirmedOrder(req, res, next) {
+    try {
+      const orders = await OrderService.confirmedOrders();
+
+      return res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async notConfirmedOrder(req, res, next) {
+    try {
+      const orders = await OrderService.notConfirmedOrders();
+
+      return res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new OrderController();
