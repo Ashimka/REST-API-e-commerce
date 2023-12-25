@@ -18,8 +18,9 @@ class UserService {
         email: true,
         role: {
           select: {
-            user_role: true,
-            admin_role: true,
+            customer: true,
+            admin: true,
+            deliveryMan: true,
           },
         },
 

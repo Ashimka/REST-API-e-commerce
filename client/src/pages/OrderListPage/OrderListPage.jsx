@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { userOrders } from "../../redux/features/orderSlice";
 
+import { dateFormat } from "../../utils/date";
+
 import "./orderListPage.scss";
 const OrderListPage = () => {
   const dispatch = useDispatch();
@@ -38,13 +40,7 @@ const OrderListPage = () => {
                 >
                   <div className="title">
                     Заказ от
-                    <span>
-                      {obj.created_at
-                        .split("T")[0]
-                        .split("-")
-                        .reverse()
-                        .join(" ")}
-                    </span>
+                    <span>{dateFormat(obj.createdDate)}</span>
                   </div>
                   <div className="price">
                     {obj.isDelivered ? "Оплачено" : "К оплате"}

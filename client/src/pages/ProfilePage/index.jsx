@@ -7,7 +7,7 @@ import { getOneUser } from "../../redux/features/userSlice";
 
 import "./profile.scss";
 import avatar from "../../static/img/avatar.jpg";
-import axios from "../../redux/api/axios";
+import { axiosPrivate } from "../../redux/api/axios";
 import { logOut } from "../../redux/features/authSlice";
 
 const Profile = () => {
@@ -27,7 +27,7 @@ const Profile = () => {
   };
 
   const handleLogout = async () => {
-    await axios.get("/auth/logout");
+    await axiosPrivate.get("/auth/logout");
     dispatch(logOut());
   };
 
@@ -40,7 +40,7 @@ const Profile = () => {
             {profile?.email?.split("@")[0]}
           </h2>
           <ul className="profile__nav">
-            {profile?.role?.admin_role && (
+            {profile?.role?.admin && (
               <Link to={"/admins"}>
                 <li className="profile__nav-item">Admin</li>
               </Link>

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { orderDetails } from "../../redux/features/orderSlice";
 
+import { dateFormat } from "../../utils/date";
+
 import "./orderDetailsPage.scss";
 
 const OrderDetailsPage = () => {
@@ -15,7 +17,7 @@ const OrderDetailsPage = () => {
 
   const order = detailsOrder?.order;
   const profile = detailsOrder?.user?.profile;
-  const data = detailsOrder?.created_at;
+  const data = detailsOrder?.createdDate;
 
   useEffect(() => {
     dispatch(orderDetails(id));
@@ -32,9 +34,7 @@ const OrderDetailsPage = () => {
             К списку заказов
           </button>
           <div className="title">Заказ № {id}</div>
-          <div className="date">
-            {`от ${data?.split("T")[0].split("-").reverse().join(" ")}`}
-          </div>
+          <div className="date">{`от ${dateFormat(data)}`}</div>
         </div>
         <div className="order-details__body">
           {order &&

@@ -8,6 +8,7 @@ class OrderService {
       data: {
         totalPrice,
         userId,
+        createdDate: Date.now(),
       },
     });
 
@@ -55,7 +56,7 @@ class OrderService {
       },
 
       select: {
-        created_at: true,
+        createdDate: true,
         isDelivered: true,
         totalPrice: true,
         user: {
