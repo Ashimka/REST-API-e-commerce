@@ -7,7 +7,7 @@ import axios from "../../redux/api/axios";
 import "./login.scss";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("460050");
 
   const navigate = useNavigate();
@@ -17,16 +17,19 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const { data } = await axios.post("/auth/login", { email, password });
+      const { data } = await axios.post("/auth/login", {
+        phoneNumber,
+        password,
+      });
 
       dispatch(
         setCredentials({
-          email,
+          phoneNumber,
           accessToken: data.tokens.accessToken,
           isActivated: data.userAuth.isActivated,
         })
       );
-      setEmail("");
+      setPhoneNumber("");
       setPassword("");
       navigate("/users/profile");
     } catch (error) {
@@ -34,20 +37,20 @@ const Login = () => {
     }
   };
 
-  const handleEmailInput = (e) => setEmail(e.target.value);
+  const handlePhoneInput = (e) => setPhoneNumber(e.target.value);
   const handlePassInput = (e) => setPassword(e.target.value);
   return (
     <>
       <form className="login-form" onSubmit={handleSubmit}>
         <h2 className="login-form__title">login pages</h2>
 
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">Номер телефона:</label>
         <input
           name="email"
-          type="email"
+          type="text"
           id="email"
-          value={email}
-          onChange={handleEmailInput}
+          value={phoneNumber}
+          onChange={handlePhoneInput}
         />
 
         <label htmlFor="password">Пароль:</label>
