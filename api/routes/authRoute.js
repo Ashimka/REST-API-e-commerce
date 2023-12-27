@@ -1,13 +1,13 @@
 import { Router } from "express";
 import AuthController from "../controllers/AuthController.js";
 import validationErrors from "../error/validationErrors.js";
-import { authValidation } from "../validations.js";
+import { authValidation, registerValidation } from "../validations.js";
 
 const router = new Router();
 
 router.post(
   "/register",
-  authValidation,
+  registerValidation,
   validationErrors,
   AuthController.registration
 );

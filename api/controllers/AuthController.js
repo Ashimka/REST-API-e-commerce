@@ -5,9 +5,10 @@ import "dotenv/config";
 class AuthController {
   async registration(req, res, next) {
     try {
-      const { email, password } = req.body;
+      const { phoneNumber, email, password } = req.body;
 
       const newUser = await AuthService.registration({
+        phoneNumber,
         email,
         password,
       });
@@ -34,8 +35,8 @@ class AuthController {
 
   async login(req, res, next) {
     try {
-      const { email, password } = req.body;
-      const userData = await AuthService.login({ email, password });
+      const { phoneNumber, password } = req.body;
+      const userData = await AuthService.login({ phoneNumber, password });
 
       res.cookie("refresh_token", userData.tokens.refreshToken, {
         httpOnly: true,

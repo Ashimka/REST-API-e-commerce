@@ -12,7 +12,7 @@ const prisma = new PrismaClient();
 import ApiError from "../error/apiError.js";
 
 class AuthService {
-  async registration({ email, password }) {
+  async registration({ phoneNumber, email, password }) {
     const duplicate = await prisma.user.findFirst({
       where: {
         email,
@@ -26,7 +26,7 @@ class AuthService {
     const activateLink = uuid();
 
     const newUser = await prisma.user.create({
-      data: { email, password: hashPassword, activateLink },
+      data: { phoneNumber, email, password: hashPassword, activateLink },
     });
 
     const roles = await prisma.role.create({ data: { userId: newUser.id } });
@@ -56,9 +56,9 @@ class AuthService {
     });
   }
 
-  async login({ email, password }) {
+  async login({ phoneNumber, password }) {
     const userAuth = await prisma.user.findFirst({
-      where: { email },
+      where: { phoneNumber },
       select: {
         id: true,
         email: true,

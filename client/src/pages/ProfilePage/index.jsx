@@ -45,6 +45,11 @@ const Profile = () => {
                 <li className="profile__nav-item">Admin</li>
               </Link>
             )}
+            {profile?.role?.deliveryMan || profile?.role?.admin ? (
+              <li className="profile__nav-item">Delivery</li>
+            ) : (
+              ""
+            )}
             <li className="profile__nav-item" onClick={handleEditProfile}>
               Profile edit
             </li>

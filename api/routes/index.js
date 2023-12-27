@@ -6,6 +6,11 @@ import adminRoute from "./adminRoute.js";
 import productRoute from "./productRoute.js";
 import uploadRoute from "./uploadRoute.js";
 import deleteFileRoute from "./deleteFileRoute.js";
+import deliversRoute from "./deliversRoute.js";
+
+import { isAuth } from "../middleware/authMiddleware.js";
+import verifyRoles from "../middleware/verifyRoles.js";
+import ROLES_LIST from "../options/rolesList.js";
 
 const router = new Router();
 
@@ -15,7 +20,11 @@ router.use("/admins", adminRoute);
 router.use("/products", productRoute);
 router.use("/upload", uploadRoute);
 router.use("/file", deleteFileRoute);
-
-// router.use("/cart", cart);
+router.use(
+  "/delivers",
+  isAuth,
+  verifyRoles([ROLES_LIST.admin, ROLES_LIST.deliveryMan]),
+  deliversRoute
+);
 
 export default router;
