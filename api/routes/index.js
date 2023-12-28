@@ -23,7 +23,7 @@ router.use("/file", deleteFileRoute);
 router.use(
   "/delivers",
   isAuth,
-  verifyRoles([ROLES_LIST.admin, ROLES_LIST.deliveryMan]),
+  verifyRoles(ROLES_LIST.admin, ROLES_LIST.deliveryMan),
   deliversRoute
 );
 

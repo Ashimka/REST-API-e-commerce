@@ -78,7 +78,7 @@ router
     "/orders-noconfirm",
     isAuth,
     verifyRoles(ROLES_LIST.admin),
-    OrderController.notConfirmedOrder
+    OrderController.isReadyOrder
   );
 
 export default router;

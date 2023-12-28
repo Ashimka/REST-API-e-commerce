@@ -55,15 +55,16 @@ class OrderController {
   async confirmedOrder(req, res, next) {
     try {
       const orders = await OrderService.confirmedOrders();
+      const totalOrder = orders.length;
 
-      return res.status(200).json(orders);
+      return res.status(200).json({ totalOrder, orders });
     } catch (error) {
       next(error);
     }
   }
-  async notConfirmedOrder(req, res, next) {
+  async isReadyOrder(req, res, next) {
     try {
-      const orders = await OrderService.notConfirmedOrders();
+      const orders = await OrderService.isReadyOrders();
 
       return res.status(200).json(orders);
     } catch (error) {
