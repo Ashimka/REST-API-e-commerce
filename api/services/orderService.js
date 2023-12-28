@@ -8,7 +8,7 @@ class OrderService {
       data: {
         totalPrice,
         userId,
-        createdDate: Date.now(),
+        createdDate: Date.now().toString(),
       },
     });
 
