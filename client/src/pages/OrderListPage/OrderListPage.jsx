@@ -58,6 +58,14 @@ const OrderListPage = () => {
                   </div>
                   {obj.isConfirmed && (
                     <div className="delivered">
+                      Заказ
+                      <span className={obj.isReady ? "ischeckout" : ""}>
+                        {obj.isReady ? "готов" : "готовится"}
+                      </span>
+                    </div>
+                  )}
+                  {obj.isReady && (
+                    <div className="delivered">
                       Доставка
                       <span className={obj.isDelivered ? "ischeckout" : ""}>
                         {obj.isDelivered ? "доставлен" : "в пути"}
