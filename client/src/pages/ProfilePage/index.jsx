@@ -46,7 +46,9 @@ const Profile = () => {
               </Link>
             )}
             {profile?.role?.deliveryMan || profile?.role?.admin ? (
-              <li className="profile__nav-item">Delivery</li>
+              <Link to={"/delivers"}>
+                <li className="profile__nav-item">Delivery</li>
+              </Link>
             ) : (
               ""
             )}

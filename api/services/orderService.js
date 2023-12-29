@@ -28,6 +28,9 @@ class OrderService {
   async userOreders(userId) {
     const orders = await prisma.order.findMany({
       where: { userId },
+      orderBy: {
+        id: "desc",
+      },
     });
 
     return orders;

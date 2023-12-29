@@ -46,6 +46,13 @@ const OrderListPage = () => {
                     {obj.isDelivered ? "Оплачено" : "К оплате"}
 
                     <span> {obj.totalPrice} ₽</span>
+                    {obj.totalPrice < 500 ? (
+                      <span className="small">
+                        +{obj.totalPrice < 500 && 500} ₽ за доставку
+                      </span>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
                 <div className="order__body">

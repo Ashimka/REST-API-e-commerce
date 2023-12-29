@@ -14,9 +14,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Profile from "./pages/ProfilePage";
 import OrderDetailsPage from "./pages/OrderDetailsPage/OrderDetailsPage";
+import DeliversOrders from "./pages/DeliversOrders/DeliversOrders";
 
 const ROLES = {
   "admin": 777,
+  "deliver": 555,
   "user": 333,
 };
 
@@ -38,6 +40,15 @@ const App = () => {
               element={<OrderDetailsPage />}
             />
           </Route>
+
+          <Route
+            element={
+              <RequireAuth allowedRoles={[ROLES.admin, ROLES.deliver]} />
+            }
+          >
+            <Route path="/delivers" element={<DeliversOrders />} />
+          </Route>
+
           <Route element={<RequireAuth allowedRoles={[ROLES.admin]} />}>
             <Route path="/admins" element={<Admin />} />
             <Route path="/admins/category" element={<AdminCategory />} />
