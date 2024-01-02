@@ -10,6 +10,9 @@ import { dateFormat } from "../../utils/date";
 import "./orderDetailsPage.scss";
 
 const OrderDetailsPage = () => {
+  const DELIVERY_PRICE = +process.env.REACT_APP_DELIVERY_PRICE;
+  const MIN_PRICE = +process.env.REACT_APP_MIN_PRICE;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -71,15 +74,15 @@ const OrderDetailsPage = () => {
             <div className="delivery__title">{`Стоимость заказа ${detailsOrder?.totalPrice} ₽`}</div>
             <div className="delivery__info">
               Доставка
-              {detailsOrder?.totalPrice >= 500
+              {detailsOrder?.totalPrice >= MIN_PRICE
                 ? " бесплатно по городу"
-                : " 500 ₽"}
+                : ` ${DELIVERY_PRICE} ₽`}
             </div>
             <div className="delivery__total">
               <span>Итого:</span>
-              {detailsOrder?.totalPrice >= 500
+              {detailsOrder?.totalPrice >= MIN_PRICE
                 ? detailsOrder?.totalPrice
-                : detailsOrder?.totalPrice + 500}{" "}
+                : detailsOrder?.totalPrice + DELIVERY_PRICE}
               ₽
             </div>
           </div>

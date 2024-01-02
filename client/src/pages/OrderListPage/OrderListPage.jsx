@@ -8,6 +8,9 @@ import { dateFormat } from "../../utils/date";
 
 import "./orderListPage.scss";
 const OrderListPage = () => {
+  const DELIVERY_PRICE = +process.env.REACT_APP_DELIVERY_PRICE;
+  const MIN_PRICE = +process.env.REACT_APP_MIN_PRICE;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -46,9 +49,10 @@ const OrderListPage = () => {
                     {obj.isDelivered ? "Оплачено" : "К оплате"}
 
                     <span> {obj.totalPrice} ₽</span>
-                    {obj.totalPrice < 500 ? (
+                    {obj.totalPrice < MIN_PRICE ? (
                       <span className="small">
-                        +{obj.totalPrice < 500 && 500} ₽ за доставку
+                        +{obj.totalPrice < MIN_PRICE && DELIVERY_PRICE} ₽ за
+                        доставку
                       </span>
                     ) : (
                       ""

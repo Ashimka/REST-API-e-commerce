@@ -6,7 +6,7 @@ export const allOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axiosPrivate.get("/delivers");
-      console.log(data);
+
       return data;
     } catch (error) {
       return rejectWithValue(error);

@@ -1,0 +1,40 @@
+.delivery-wrapper {
+  margin-top: var(--spacing-large);
+
+  .delivery {
+    display: flex;
+    gap: var(--spacing-large);
+
+    &__item {
+      cursor: pointer;
+      border: 2px solid var(--bg-btn-active);
+      border-radius: 5px;
+      padding: var(--spacing-small);
+      transition: all 0.4s;
+
+      &:hover {
+        background: var(--bg-btn-hover);
+        color: var(--text-white);
+      }
+    }
+    &__body {
+      margin-top: var(--spacing-large);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-large);
+      .all-orders {
+        border: 2px solid red;
+        padding: var(--spacing-small);
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-medium);
+
+        &__body {
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-small);
+        }
+      }
+    }
+  }
+}

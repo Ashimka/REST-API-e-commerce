@@ -84,6 +84,33 @@ class OrderService {
       orderBy: {
         id: "desc",
       },
+
+      select: {
+        createdDate: true,
+        order_details: {
+          select: {
+            product: {
+              select: {
+                description: true,
+                name: true,
+                price: true,
+              },
+            },
+            count: true,
+          },
+        },
+        user: {
+          select: {
+            profile: {
+              select: {
+                name: true,
+                phone: true,
+                addres: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     return orders;
