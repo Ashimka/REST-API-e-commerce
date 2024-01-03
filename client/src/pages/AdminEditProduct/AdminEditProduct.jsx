@@ -130,7 +130,6 @@ const AdminEditProduct = () => {
       <div className="admin-edit-product-page">
         <NavAdmin />
         <div className="admin-edit-product-page__form">
-          edit
           <form className="admin-edit-product" encType="multipart/form-data">
             <input
               className="admin-edit-product__input"
@@ -175,12 +174,14 @@ const AdminEditProduct = () => {
               value={selectCategory}
               onChange={(event) => setSelectCategory(event.target.value)}
             >
-              <option disabled={true} value="">
-                Категория
-              </option>
+              <option disabled={true}>{selectCategory}</option>
               {name &&
                 name.map((cat) => (
-                  <option key={cat.id} value={cat.name}>
+                  <option
+                    key={cat.id}
+                    value={cat.name}
+                    disabled={cat.name === "Все" ? true : false}
+                  >
                     {cat.name}
                   </option>
                 ))}

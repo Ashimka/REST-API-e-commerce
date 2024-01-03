@@ -65,9 +65,7 @@ const OrderDetailsPage = () => {
           <div className="delivery">
             <div className="delivery__title">Доставка</div>
             <div className="delivery__info">{profile?.name}</div>
-            <Link to={`tel:${profile?.phone}`}>
-              <div>{profile?.phone}</div>
-            </Link>
+            <Link to={`tel:${profile?.phone}`}>{profile?.phone}</Link>
             <div className="delivery__info">{profile?.addres}</div>
           </div>
           <div className="delivery">

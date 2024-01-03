@@ -87,6 +87,8 @@ class OrderService {
 
       select: {
         createdDate: true,
+        id: true,
+
         order_details: {
           select: {
             product: {
@@ -94,6 +96,15 @@ class OrderService {
                 description: true,
                 name: true,
                 price: true,
+                category: {
+                  select: {
+                    category: {
+                      select: {
+                        name: true,
+                      },
+                    },
+                  },
+                },
               },
             },
             count: true,

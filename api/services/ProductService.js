@@ -96,7 +96,7 @@ class ProductService {
     await prisma.product_Cat.update({
       where: { productId: id },
       data: {
-        name: category,
+        name: textTranslit(category),
       },
     });
 

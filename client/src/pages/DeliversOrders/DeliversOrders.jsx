@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { allOrders } from "../../redux/features/deliversSlice";
+import { checkRoleUser } from "../../utils/date";
 
 import AllOrders from "../../components/AllOrders/AllOrders";
 
@@ -11,10 +12,9 @@ const DeliversOrders = () => {
   const [allOrdersList, setAllOrdersList] = useState(false);
   const dispatsh = useDispatch();
   const { orders } = useSelector((state) => state.delivery);
-  const { role } = useSelector((state) => state.user?.profile);
 
-  const isDeliveryMan = Boolean(role?.deliveryMan);
-  const isAdmin = Boolean(role?.admin);
+  const isDeliveryMan = checkRoleUser("deliveryMan", orders?.roles);
+  const isAdmin = checkRoleUser("admin", orders?.roles);
 
   useEffect(() => {
     dispatsh(allOrders());
@@ -45,7 +45,7 @@ const DeliversOrders = () => {
         </div>
         <div className="delivery__body">
           {allOrdersList &&
-            orders.map((item, id) => <AllOrders key={id} {...item} />)}
+            orders?.orders.map((item) => <AllOrders key={item.id} {...item} />)}
         </div>
       </div>
     </>

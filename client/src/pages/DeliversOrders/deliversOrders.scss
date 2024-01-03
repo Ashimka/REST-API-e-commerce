@@ -22,19 +22,42 @@
       display: flex;
       flex-direction: column;
       gap: var(--spacing-large);
+
       .all-orders {
-        border: 2px solid red;
+        background: linear-gradient(
+          0deg,
+          rgba(204, 168, 233, 1) 0%,
+          rgba(222, 252, 249, 1) 100%
+        );
         padding: var(--spacing-small);
         display: flex;
         flex-direction: column;
         gap: var(--spacing-medium);
+        border-radius: var(--spacing-small);
+
+        &__header {
+          font-weight: 600;
+          color: #10074e;
+        }
 
         &__body {
           display: flex;
           flex-direction: column;
-          gap: var(--spacing-small);
+          gap: var(--spacing-medium);
+
+          .order {
+            list-style-position: inside;
+            font-size: 18px;
+
+            .name {
+              font-weight: 600;
+              margin: var(--spacing-small) 0;
+            }
+          }
         }
       }
     }
   }
 }
+
+// #CCA8E9

@@ -44,9 +44,10 @@ class OrderController {
 
   async allOrders(req, res, next) {
     try {
+      const roles = req.roles;
       const orders = await OrderService.allOrders();
 
-      return res.status(200).json(orders);
+      return res.status(200).json({ roles, orders });
     } catch (error) {
       next(error);
     }
