@@ -32,18 +32,21 @@ const AllOrders = (props) => {
         </ol>
         <div className="all-orders__customer">
           <details className="customer">
-            <summary>Customer</summary>
-            <div className="customer-info">{`Name: ${props.user.profile.name}`}</div>
-            <Link
-              className="customer-info"
-              to={`tel:${props.user.profile.phone}`}
-            >{`Phone: ${props.user.profile.phone}`}</Link>
-            <div className="customer-info">{`Adress: ${props.user.profile.addres}`}</div>
+            <summary>Доставка</summary>
+            <div className="customer-info">{`Имя: ${props.user.profile.name}`}</div>
+            <div className="customer-info">
+              Телефон:
+              <Link
+                to={`tel:${props.user.profile.phone}`}
+              >{`   ${props.user.profile.phone}`}</Link>
+            </div>
+
+            <div className="customer-info">{`Адрес: ${props.user.profile.addres}`}</div>
           </details>
         </div>
         <div className="all-orders__total-price">
           {totalPrice < MIN_PRICE && (
-            <div>{`+${DELIVERY_PRICE} ₽ доставка`}</div>
+            <span className="delivery">{`+${DELIVERY_PRICE} ₽ доставка`}</span>
           )}
           <span>Итого к оплате: </span>
           {totalPrice < MIN_PRICE ? totalPrice + DELIVERY_PRICE : totalPrice}

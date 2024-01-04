@@ -55,6 +55,25 @@
             }
           }
         }
+        &__customer {
+          .customer {
+            summary {
+              cursor: pointer;
+              margin-bottom: var(--spacing-small);
+            }
+            .customer-info > a {
+              color: var(--bg-btn-active);
+              font-weight: 600;
+            }
+          }
+        }
+        &__total-price {
+          .delivery {
+            color: red;
+            font-size: 16px;
+            font-weight: 600;
+          }
+        }
       }
     }
   }
