@@ -4,8 +4,10 @@
   .delivery {
     display: flex;
     gap: var(--spacing-large);
+    flex-wrap: wrap;
 
     &__item {
+      font-size: 16px;
       cursor: pointer;
       border: 2px solid var(--bg-btn-active);
       border-radius: 5px;

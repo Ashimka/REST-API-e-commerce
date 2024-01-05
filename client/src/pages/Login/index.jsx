@@ -8,7 +8,9 @@ import "./login.scss";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("460050");
+  const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
+  const [showPass, setShowPass] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,8 +35,14 @@ const Login = () => {
       setPassword("");
       navigate("/users/profile");
     } catch (error) {
-      console.log(error);
+      setErrMessage(error.response.data.message);
     }
+  };
+
+  const clearError = () => {
+    setErrMessage("");
+    setPhoneNumber("");
+    setPassword("");
   };
 
   const handlePhoneInput = (e) => setPhoneNumber(e.target.value);
@@ -42,27 +50,66 @@ const Login = () => {
   return (
     <>
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2 className="login-form__title">login pages</h2>
+        {errMessage ? (
+          <>
+            <div className="error-auth">
+              <span className="error-close" onClick={clearError}>
+                X
+              </span>
+              <span>{errMessage}</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <h2 className="login-form__title">авторизация</h2>
 
-        <label htmlFor="email">Номер телефона:</label>
-        <input
-          name="email"
-          type="text"
-          id="email"
-          value={phoneNumber}
-          onChange={handlePhoneInput}
-        />
+            <label htmlFor="email">Номер телефона:</label>
+            <div className="custom-input">
+              <input
+                className="input-auth"
+                tabIndex={1}
+                name="email"
+                type="text"
+                id="email"
+                minLength={10}
+                value={phoneNumber}
+                onChange={handlePhoneInput}
+                required
+              />
+              <span className="first-input">+7</span>
+            </div>
 
-        <label htmlFor="password">Пароль:</label>
-        <input
-          name="password"
-          type="password"
-          id="password"
-          value={password}
-          onChange={handlePassInput}
-        />
+            <label htmlFor="password">Пароль:</label>
+            <input
+              className="input-auth"
+              tabIndex={2}
+              name="password"
+              type={showPass ? "text" : "password"}
+              id="password"
+              value={password}
+              onChange={handlePassInput}
+              required
+            />
+            <div className="show-password">
+              <label htmlFor="show-password">Показать пароль</label>
+              <input
+                className="input-checkbox"
+                type="checkbox"
+                id="show-password"
+                onChange={() => setShowPass(!showPass)}
+                tabIndex={3}
+              />
+            </div>
 
-        <button className="btn-signin">Войти</button>
+            <button
+              tabIndex={4}
+              className="btn-signin"
+              disabled={!phoneNumber || !password}
+            >
+              Войти
+            </button>
+          </>
+        )}
       </form>
     </>
   );
