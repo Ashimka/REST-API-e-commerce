@@ -4,7 +4,7 @@ import OrderController from "../controllers/OrderController.js";
 const router = new Router();
 
 router
-  .get("/", OrderController.allOrders)
+  .get("/", OrderController.newNotConfirmedOrders)
   .get("/new-orders", OrderController.confirmedOrder)
   .get("/isready", OrderController.isReadyOrder);
 

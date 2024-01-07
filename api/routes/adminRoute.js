@@ -66,7 +66,7 @@ router
     "/orders",
     isAuth,
     verifyRoles(ROLES_LIST.admin),
-    OrderController.allOrders
+    OrderController.newNotConfirmedOrders
   )
   .get(
     "/orders-confirm",

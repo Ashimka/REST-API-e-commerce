@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { axiosPrivate } from "../api/axios";
 
-export const allOrders = createAsyncThunk(
-  "delivers/allOrders",
+export const newOrders = createAsyncThunk(
+  "delivers/newOrders",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axiosPrivate.get("/delivers");
@@ -27,15 +27,15 @@ export const deliversSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      //  allOrders
-      .addCase(allOrders.pending, (state) => {
+      //  newOrders
+      .addCase(newOrders.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(allOrders.fulfilled, (state, action) => {
+      .addCase(newOrders.fulfilled, (state, action) => {
         state.isLoading = false;
         state.orders = action.payload;
       })
-      .addCase(allOrders.rejected, (state, action) => {
+      .addCase(newOrders.rejected, (state, action) => {
         state.isError = true;
         state.message = action.error;
       });

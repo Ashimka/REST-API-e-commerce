@@ -42,12 +42,11 @@ class OrderController {
     }
   }
 
-  async allOrders(req, res, next) {
+  async newNotConfirmedOrders(req, res, next) {
     try {
-      const roles = req.roles;
-      const orders = await OrderService.allOrders();
+      const orders = await OrderService.newNotConfirmedOrders();
 
-      return res.status(200).json({ roles, orders });
+      return res.status(200).json(orders);
     } catch (error) {
       next(error);
     }
