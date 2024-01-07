@@ -29,6 +29,7 @@ const Login = () => {
           phoneNumber,
           accessToken: data.tokens.accessToken,
           isActivated: data.userAuth.isActivated,
+          roles: data.userAuth.role,
         })
       );
       setPhoneNumber("");

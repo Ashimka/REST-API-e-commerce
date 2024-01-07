@@ -12,6 +12,7 @@ const initialState = {
   token: null,
   isAuth: false,
   isActivated: null,
+  roles: null,
 };
 
 const authSlice = createSlice({
@@ -19,12 +20,13 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      const { phoneNumber, accessToken, isActivated } = action.payload;
+      const { phoneNumber, accessToken, isActivated, roles } = action.payload;
 
       state.user = phoneNumber;
       state.token = accessToken;
       state.isActivated = isActivated;
       state.isAuth = true;
+      state.roles = Object.keys(roles);
     },
 
     logOut: (state) => {
@@ -32,6 +34,7 @@ const authSlice = createSlice({
       state.token = null;
       state.isAuth = false;
       state.isActivated = null;
+      state.roles = null;
     },
   },
   extraReducers: (builder) => {

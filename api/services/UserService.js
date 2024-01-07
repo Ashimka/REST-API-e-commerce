@@ -16,14 +16,6 @@ class UserService {
       where: { id },
       select: {
         email: true,
-        role: {
-          select: {
-            customer: true,
-            admin: true,
-            deliveryMan: true,
-          },
-        },
-
         profile: {
           select: {
             avatar: true,

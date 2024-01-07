@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { allOrders } from "../../redux/features/deliversSlice";
-import { checkRoleUser } from "../../utils/date";
 
 import AllOrders from "../../components/AllOrders/AllOrders";
 
@@ -13,13 +12,16 @@ const DeliversOrders = () => {
   const [newOrderList, setNewOrderList] = useState(false);
   const dispatsh = useDispatch();
   const { orders } = useSelector((state) => state.delivery);
+  const { roles } = useSelector((state) => state.persistedReducer.auth);
 
-  const isDeliveryMan = checkRoleUser("deliveryMan", orders?.roles);
-  const isAdmin = checkRoleUser("admin", orders?.roles);
+  const isAdmin = roles?.includes("admin");
+  const isDeliveryMan = roles?.includes("deliveryMan");
 
   useEffect(() => {
-    dispatsh(allOrders());
-  }, [dispatsh]);
+    if (allOrdersList) {
+      dispatsh(allOrders());
+    }
+  }, [dispatsh, allOrdersList]);
 
   const getAllOrders = () => {
     setAllOrdersList(true);
@@ -57,7 +59,7 @@ const DeliversOrders = () => {
           {allOrdersList && (
             <>
               <h4>Все заказы</h4>
-              {orders?.orders.map((item) => (
+              {orders?.orders?.map((item) => (
                 <AllOrders key={item.id} {...item} />
               ))}
             </>

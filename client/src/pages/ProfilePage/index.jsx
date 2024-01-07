@@ -14,7 +14,12 @@ const Profile = () => {
   const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.user);
-  const { isActivated } = useSelector((state) => state.persistedReducer.auth);
+  const { isActivated, roles } = useSelector(
+    (state) => state.persistedReducer.auth
+  );
+
+  const isAdmin = roles?.includes("admin");
+  const isDeliveryMan = roles?.includes("deliveryMan");
 
   useEffect(() => {
     if (!edit) {
@@ -40,12 +45,12 @@ const Profile = () => {
             {profile?.email?.split("@")[0]}
           </h2>
           <ul className="profile__nav">
-            {profile?.role?.admin && (
+            {isAdmin && (
               <Link to={"/admins"}>
                 <li className="profile__nav-item">Admin</li>
               </Link>
             )}
-            {profile?.role?.deliveryMan || profile?.role?.admin ? (
+            {isDeliveryMan || isAdmin ? (
               <Link to={"/delivers"}>
                 <li className="profile__nav-item">Delivery</li>
               </Link>

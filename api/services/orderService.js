@@ -82,7 +82,7 @@ class OrderService {
   async allOrders() {
     const orders = await prisma.order.findMany({
       orderBy: {
-        id: "desc",
+        createdDate: "desc",
       },
 
       select: {

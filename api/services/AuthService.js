@@ -92,6 +92,14 @@ class AuthService {
 
     await TokenService.saveToken(userAuth.id, tokens.refreshToken);
 
+    const role = userAuth.role;
+
+    for (let key in role) {
+      if (role[key] === null) {
+        delete role[key];
+      }
+    }
+
     return { tokens, userAuth };
   }
 
