@@ -5,7 +5,7 @@ const router = new Router();
 
 router
   .get("/", OrderController.newNotConfirmedOrders)
-  .get("/new-orders", OrderController.confirmedOrder)
-  .get("/isready", OrderController.isReadyOrder);
+  .get("/:confirmed", OrderController.confirmedOrders)
+  .get("/:isready", OrderController.isReadyOrders);
 
 export default router;

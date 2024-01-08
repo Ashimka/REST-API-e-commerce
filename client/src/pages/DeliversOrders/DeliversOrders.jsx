@@ -10,6 +10,7 @@ import "./deliversOrders.scss";
 const DeliversOrders = () => {
   const [allOrdersList, setAllOrdersList] = useState(false);
   const [newOrderList, setNewOrderList] = useState(false);
+  const [confirmedOrdersList, setConfirmedOrdersList] = useState(false);
 
   const dispatsh = useDispatch();
 
@@ -28,10 +29,18 @@ const DeliversOrders = () => {
   const getAllOrders = () => {
     setAllOrdersList(true);
     setNewOrderList(false);
+    setConfirmedOrdersList(false);
   };
 
   const getNewOrders = () => {
     setNewOrderList(true);
+    setAllOrdersList(false);
+    setConfirmedOrdersList(false);
+  };
+
+  const getConfirmedOrders = () => {
+    setConfirmedOrdersList(true);
+    setNewOrderList(false);
     setAllOrdersList(false);
   };
 
@@ -52,7 +61,9 @@ const DeliversOrders = () => {
 
           {isDeliveryMan && (
             <>
-              <div className="delivery__item">Заказы на кухне</div>
+              <div className="delivery__item" onClick={getConfirmedOrders}>
+                Заказы на кухне
+              </div>
               <div className="delivery__item">Заказы в доставке</div>
             </>
           )}
@@ -68,6 +79,7 @@ const DeliversOrders = () => {
           )}
 
           {allOrdersList && <h4>Все заказы</h4>}
+          {confirmedOrdersList && <h4>Заказы переданные на кухню</h4>}
         </div>
       </div>
     </>

@@ -72,13 +72,13 @@ router
     "/orders-confirm",
     isAuth,
     verifyRoles(ROLES_LIST.admin),
-    OrderController.confirmedOrder
+    OrderController.confirmedOrders
   )
   .get(
     "/orders-noconfirm",
     isAuth,
     verifyRoles(ROLES_LIST.admin),
-    OrderController.isReadyOrder
+    OrderController.isReadyOrders
   );
 
 export default router;

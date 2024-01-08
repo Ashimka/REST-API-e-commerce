@@ -136,6 +136,35 @@ class OrderService {
     const orders = await prisma.order.findMany({
       where: {
         isConfirmed: true,
+        isReady: false,
+        isDelivered: false,
+      },
+
+      orderBy: {
+        createdDate: "desc",
+      },
+
+      select: {
+        id: true,
+        order_details: {
+          select: {
+            count: true,
+            product: {
+              select: {
+                name: true,
+                category: {
+                  select: {
+                    category: {
+                      select: {
+                        name: true,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
 
@@ -147,6 +176,7 @@ class OrderService {
       where: {
         isConfirmed: true,
         isReady: true,
+        isDelivered: false,
       },
       select: {
         totalPrice: true,

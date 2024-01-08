@@ -52,7 +52,7 @@ class OrderController {
     }
   }
 
-  async confirmedOrder(req, res, next) {
+  async confirmedOrders(req, res, next) {
     try {
       const orders = await OrderService.confirmedOrders();
       const totalOrder = orders.length;
@@ -62,7 +62,7 @@ class OrderController {
       next(error);
     }
   }
-  async isReadyOrder(req, res, next) {
+  async isReadyOrders(req, res, next) {
     try {
       const orders = await OrderService.isReadyOrders();
 
