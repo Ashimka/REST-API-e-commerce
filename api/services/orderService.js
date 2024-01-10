@@ -79,7 +79,15 @@ class OrderService {
     return { ...orderDetails, order };
   }
 
-  async newNotConfirmedOrders() {
+  async newNotConfirmedOrders(order) {
+    if (order === "confirm") {
+      return this.confirmedOrders();
+    }
+
+    if (order === "ready") {
+      return this.isReadyOrders();
+    }
+
     const orders = await prisma.order.findMany({
       where: {
         isConfirmed: false,
@@ -179,6 +187,7 @@ class OrderService {
         isDelivered: false,
       },
       select: {
+        id: true,
         totalPrice: true,
 
         user: {

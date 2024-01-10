@@ -73,7 +73,9 @@ const DeliversOrders = () => {
             <>
               <h4>Новые заказы</h4>
               {orders?.map((item) => (
-                <Orders key={item.id} {...item} />
+                <React.Fragment key={item.id}>
+                  <Orders {...item} />
+                </React.Fragment>
               ))}
             </>
           )}
