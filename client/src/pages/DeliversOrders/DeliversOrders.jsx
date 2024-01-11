@@ -26,22 +26,24 @@ const DeliversOrders = () => {
   const isDeliveryMan = roles?.includes("deliveryMan");
 
   useEffect(() => {
+    if (params === "new") {
+      setNewOrderList(true);
+    }
+
     if (newOrderList) {
       dispatsh(newOrders());
     }
-  }, [dispatsh, newOrderList]);
+  }, [dispatsh, newOrderList, params]);
 
   useEffect(() => {
+    if (params === "confirm") {
+      setConfirmedOrdersList(true);
+    }
+
     if (confirmedOrdersList) {
       dispatsh(confirmOrders(params));
     }
   }, [dispatsh, confirmedOrdersList, params]);
-
-  const getAllOrders = () => {
-    setAllOrdersList(true);
-    setNewOrderList(false);
-    setConfirmedOrdersList(false);
-  };
 
   const getNewOrders = () => {
     setNewOrderList(true);
@@ -51,10 +53,11 @@ const DeliversOrders = () => {
   };
 
   const getConfirmedOrders = () => {
+    setSearchParams({ order: "confirm" });
+
     setConfirmedOrdersList(true);
     setNewOrderList(false);
     setAllOrdersList(false);
-    setSearchParams({ order: "confirm" });
   };
 
   return (
@@ -63,9 +66,6 @@ const DeliversOrders = () => {
         <div className="delivery">
           {isAdmin && (
             <>
-              <div className="delivery__item" onClick={getAllOrders}>
-                Все заказы
-              </div>
               <div className="delivery__item" onClick={getNewOrders}>
                 Новые заказы
               </div>
