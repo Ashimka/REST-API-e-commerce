@@ -3,9 +3,9 @@ import { axiosPrivate } from "../api/axios";
 
 export const newOrders = createAsyncThunk(
   "delivers/newOrders",
-  async (_, { rejectWithValue }) => {
+  async (query, { rejectWithValue }) => {
     try {
-      const { data } = await axiosPrivate.get("/delivers");
+      const { data } = await axiosPrivate.get(`/delivers?order=${query}`);
 
       return data;
     } catch (error) {

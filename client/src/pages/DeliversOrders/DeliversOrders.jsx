@@ -31,7 +31,7 @@ const DeliversOrders = () => {
     }
 
     if (newOrderList) {
-      dispatsh(newOrders());
+      dispatsh(newOrders(params));
     }
   }, [dispatsh, newOrderList, params]);
 

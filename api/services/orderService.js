@@ -88,56 +88,58 @@ class OrderService {
       return this.isReadyOrders();
     }
 
-    const orders = await prisma.order.findMany({
-      where: {
-        isConfirmed: false,
-        isReady: false,
-        isDelivered: false,
-      },
-      orderBy: {
-        createdDate: "desc",
-      },
+    if (order === "new") {
+      const orders = await prisma.order.findMany({
+        where: {
+          isConfirmed: false,
+          isReady: false,
+          isDelivered: false,
+        },
+        orderBy: {
+          createdDate: "desc",
+        },
 
-      select: {
-        createdDate: true,
-        id: true,
+        select: {
+          createdDate: true,
+          id: true,
 
-        order_details: {
-          select: {
-            product: {
-              select: {
-                description: true,
-                name: true,
-                price: true,
-                category: {
-                  select: {
-                    category: {
-                      select: {
-                        name: true,
+          order_details: {
+            select: {
+              product: {
+                select: {
+                  description: true,
+                  name: true,
+                  price: true,
+                  category: {
+                    select: {
+                      category: {
+                        select: {
+                          name: true,
+                        },
                       },
                     },
                   },
                 },
               },
+              count: true,
             },
-            count: true,
           },
-        },
-        user: {
-          select: {
-            profile: {
-              select: {
-                name: true,
-                phone: true,
-                addres: true,
+          user: {
+            select: {
+              profile: {
+                select: {
+                  name: true,
+                  phone: true,
+                  addres: true,
+                },
               },
             },
           },
         },
-      },
-    });
+      });
 
-    return orders;
+      return orders;
+    }
   }
 
   async confirmedOrders() {
