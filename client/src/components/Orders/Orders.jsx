@@ -26,32 +26,40 @@ const AllOrders = (props) => {
               <div className="name">{item.product.name}</div>
               <div className="description">{item.product.description}</div>
               <div className="count">{`Количество ${item.count}`}</div>
-              <div className="price">{`Стоимость: за 1 порцию/шт ${item.product.price} ₽`}</div>
+              {props.user && (
+                <div className="price">{`Стоимость: за 1 порцию/шт ${item.product.price} ₽`}</div>
+              )}
             </li>
           ))}
         </ol>
-        <div className="all-orders__customer">
-          <details className="customer">
-            <summary>Доставка</summary>
-            <div className="customer-info">{`Имя: ${props.user.profile.name}`}</div>
-            <div className="customer-info">
-              Телефон:
-              <Link
-                to={`tel:${props.user.profile.phone}`}
-              >{`   ${props.user.profile.phone}`}</Link>
-            </div>
+        {props.user && (
+          <>
+            <div className="all-orders__customer">
+              <details className="customer">
+                <summary>Доставка</summary>
+                <div className="customer-info">{`Имя: ${props.user.profile.name}`}</div>
+                <div className="customer-info">
+                  Телефон:
+                  <Link
+                    to={`tel:${props.user.profile.phone}`}
+                  >{`   ${props.user.profile.phone}`}</Link>
+                </div>
 
-            <div className="customer-info">{`Адрес: ${props.user.profile.addres}`}</div>
-          </details>
-        </div>
-        <div className="all-orders__total-price">
-          {totalPrice < MIN_PRICE && (
-            <span className="delivery">{`+${DELIVERY_PRICE} ₽ доставка`}</span>
-          )}
-          <span>Итого к оплате: </span>
-          {totalPrice < MIN_PRICE ? totalPrice + DELIVERY_PRICE : totalPrice}
-          <span> ₽</span>
-        </div>
+                <div className="customer-info">{`Адрес: ${props.user.profile.addres}`}</div>
+              </details>
+            </div>
+            <div className="all-orders__total-price">
+              {totalPrice < MIN_PRICE && (
+                <span className="delivery">{`+${DELIVERY_PRICE} ₽ доставка`}</span>
+              )}
+              <span>Итого к оплате: </span>
+              {totalPrice < MIN_PRICE
+                ? totalPrice + DELIVERY_PRICE
+                : totalPrice}
+              <span> ₽</span>
+            </div>
+          </>
+        )}
       </div>
     </>
   );

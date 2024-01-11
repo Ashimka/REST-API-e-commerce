@@ -3,9 +3,6 @@ import OrderController from "../controllers/OrderController.js";
 
 const router = new Router();
 
-router
-  .get("/", OrderController.newNotConfirmedOrders)
-  .get("/:confirmed", OrderController.confirmedOrders)
-  .get("/:isready", OrderController.isReadyOrders);
+router.get("/", OrderController.newNotConfirmedOrders);
 
 export default router;
