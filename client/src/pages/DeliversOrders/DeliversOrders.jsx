@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
-import { newOrders, confirmOrders } from "../../redux/features/deliversSlice";
+import { getOrders } from "../../redux/features/deliversSlice";
 
 import Orders from "../../components/Orders/Orders";
 
 import "./deliversOrders.scss";
 
 const DeliversOrders = () => {
-  const [allOrdersList, setAllOrdersList] = useState(false);
   const [newOrderList, setNewOrderList] = useState(false);
   const [confirmedOrdersList, setConfirmedOrdersList] = useState(false);
 
@@ -31,7 +30,7 @@ const DeliversOrders = () => {
     }
 
     if (newOrderList) {
-      dispatsh(newOrders(params));
+      dispatsh(getOrders(params));
     }
   }, [dispatsh, newOrderList, params]);
 
@@ -41,23 +40,20 @@ const DeliversOrders = () => {
     }
 
     if (confirmedOrdersList) {
-      dispatsh(confirmOrders(params));
+      dispatsh(getOrders(params));
     }
   }, [dispatsh, confirmedOrdersList, params]);
 
   const getNewOrders = () => {
     setNewOrderList(true);
-    setAllOrdersList(false);
     setConfirmedOrdersList(false);
     setSearchParams({ order: "new" });
   };
 
   const getConfirmedOrders = () => {
     setSearchParams({ order: "confirm" });
-
     setConfirmedOrdersList(true);
     setNewOrderList(false);
-    setAllOrdersList(false);
   };
 
   return (
@@ -93,7 +89,6 @@ const DeliversOrders = () => {
             </>
           )}
 
-          {allOrdersList && <h4>Все заказы</h4>}
           {confirmedOrdersList && (
             <>
               <h4>Заказы переданные на кухню</h4>
