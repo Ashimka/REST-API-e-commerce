@@ -8,9 +8,12 @@ const AllOrders = (props) => {
   const DELIVERY_PRICE = +process.env.REACT_APP_DELIVERY_PRICE;
   const MIN_PRICE = +process.env.REACT_APP_MIN_PRICE;
 
-  const totalPrice = props.order_details.reduce((sum, obj) => {
-    return obj.product.price * obj.count + sum;
-  }, 0);
+  const totalPrice =
+    (props.order_details &&
+      props.order_details.reduce((sum, obj) => {
+        return obj.product.price * obj.count + sum;
+      }, 0)) ||
+    props.totalPrice;
   return (
     <>
       <div className="all-orders">
@@ -20,17 +23,18 @@ const AllOrders = (props) => {
           )}`}</div>
         </div>
         <ol className="all-orders__body">
-          {props.order_details.map((item, id) => (
-            <li className="order" key={id}>
-              <span>{item.product.category.category.name}</span>
-              <div className="name">{item.product.name}</div>
-              <div className="description">{item.product.description}</div>
-              <div className="count">{`Количество ${item.count}`}</div>
-              {props.user && (
-                <div className="price">{`Стоимость: за 1 порцию/шт ${item.product.price} ₽`}</div>
-              )}
-            </li>
-          ))}
+          {props.order_details &&
+            props.order_details.map((item, id) => (
+              <li className="order" key={id}>
+                <span>{item.product.category.category.name}</span>
+                <div className="name">{item.product.name}</div>
+                <div className="description">{item.product.description}</div>
+                <div className="count">{`Количество ${item.count}`}</div>
+                {props.user && (
+                  <div className="price">{`Стоимость: за 1 порцию/шт ${item.product.price} ₽`}</div>
+                )}
+              </li>
+            ))}
         </ol>
         {props.user && (
           <>

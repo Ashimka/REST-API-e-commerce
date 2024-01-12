@@ -11,6 +11,7 @@ import "./deliversOrders.scss";
 const DeliversOrders = () => {
   const [newOrderList, setNewOrderList] = useState(false);
   const [confirmedOrdersList, setConfirmedOrdersList] = useState(false);
+  const [readyOrdersList, setReadyOrdersList] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -18,7 +19,7 @@ const DeliversOrders = () => {
 
   const dispatsh = useDispatch();
 
-  const { orders } = useSelector((state) => state.delivery);
+  const { orders, isLoading } = useSelector((state) => state.delivery);
   const { roles } = useSelector((state) => state.persistedReducer.auth);
 
   const isAdmin = roles?.includes("admin");
@@ -44,15 +45,34 @@ const DeliversOrders = () => {
     }
   }, [dispatsh, confirmedOrdersList, params]);
 
+  useEffect(() => {
+    if (params === "ready") {
+      setReadyOrdersList(true);
+    }
+
+    if (readyOrdersList) {
+      dispatsh(getOrders(params));
+    }
+  }, [dispatsh, readyOrdersList, params]);
+
   const getNewOrders = () => {
+    setSearchParams({ order: "new" });
     setNewOrderList(true);
     setConfirmedOrdersList(false);
-    setSearchParams({ order: "new" });
+    setReadyOrdersList(false);
   };
 
   const getConfirmedOrders = () => {
     setSearchParams({ order: "confirm" });
     setConfirmedOrdersList(true);
+    setNewOrderList(false);
+    setReadyOrdersList(false);
+  };
+
+  const getReadyOrders = () => {
+    setSearchParams({ order: "ready" });
+    setReadyOrdersList(true);
+    setConfirmedOrdersList(false);
     setNewOrderList(false);
   };
 
@@ -73,11 +93,18 @@ const DeliversOrders = () => {
               <div className="delivery__item" onClick={getConfirmedOrders}>
                 Заказы на кухне
               </div>
-              <div className="delivery__item">Заказы в доставке</div>
+              <div className="delivery__item" onClick={getReadyOrders}>
+                Заказы в доставке
+              </div>
             </>
           )}
         </div>
         <div className="delivery__body">
+          {isLoading && (
+            <>
+              <h4>Loading...</h4>
+            </>
+          )}
           {newOrderList && (
             <>
               <h4>Новые заказы</h4>
@@ -92,6 +119,17 @@ const DeliversOrders = () => {
           {confirmedOrdersList && (
             <>
               <h4>Заказы переданные на кухню</h4>
+              {orders?.map((item) => (
+                <React.Fragment key={item.id}>
+                  <Orders {...item} />
+                </React.Fragment>
+              ))}
+            </>
+          )}
+
+          {readyOrdersList && (
+            <>
+              <h4>Заказы в доставке</h4>
               {orders?.map((item) => (
                 <React.Fragment key={item.id}>
                   <Orders {...item} />
