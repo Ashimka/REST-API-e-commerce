@@ -208,6 +208,19 @@ class OrderService {
 
     return orders;
   }
+
+  async confirmationOfOrder(order, id, confirmed) {
+    if (order === "new") {
+      const orderConfirmed = await prisma.order.update({
+        where: { id },
+        data: {
+          isConfirmed: confirmed,
+        },
+      });
+
+      return orderConfirmed;
+    }
+  }
 }
 
 export default new OrderService();

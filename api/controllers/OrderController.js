@@ -64,11 +64,29 @@ class OrderController {
       next(error);
     }
   }
+
   async isReadyOrders(req, res, next) {
     try {
       const orders = await OrderService.isReadyOrders();
 
       return res.status(200).json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async confirmationOfOrder(req, res, next) {
+    try {
+      const { order } = req.query;
+      const { id, confirmed } = req.body;
+
+      const orderConfirmed = await OrderService.confirmationOfOrder(
+        order,
+        id,
+        confirmed
+      );
+
+      return res.status(200).json(orderConfirmed);
     } catch (error) {
       next(error);
     }
