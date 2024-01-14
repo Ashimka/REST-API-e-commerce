@@ -60,12 +60,25 @@ export const deliversSlice = createSlice({
         state.message = action.error;
       })
       // confirmedOrders
+      .addCase(confirmedOrders.pending, (state) => {
+        state.isLoading = true;
+      })
       .addCase(confirmedOrders.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.orders.find((obj) => obj.id === action.payload.id).isConfirmed =
-          action.payload.isConfirmed;
-        // console.log(action.payload);
-        // console.log(state.orders);
+        console.log(action.payload);
+
+        if (!state.orders.isConfirmed) {
+          state.orders.find((obj) => obj.id === action.payload.id).isConfirmed =
+            action.payload.isConfirmed;
+        }
+        if (!state.orders.isReady) {
+          state.orders.find((obj) => obj.id === action.payload.id).isReady =
+            action.payload.isReady;
+        }
+      })
+      .addCase(confirmedOrders.rejected, (state, action) => {
+        state.isError = true;
+        state.message = action.error;
       });
   },
 });

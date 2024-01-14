@@ -108,6 +108,7 @@ const DeliversOrders = () => {
           {newOrderList && (
             <>
               <h4>Новые заказы</h4>
+              {!orders.length && <p>Нет заказов</p>}
               {orders?.map((item) => (
                 <React.Fragment key={item.id}>
                   <Orders {...item} params={params} />
@@ -119,9 +120,10 @@ const DeliversOrders = () => {
           {confirmedOrdersList && (
             <>
               <h4>Заказы переданные на кухню</h4>
+              {!orders.length && <p>Нет заказов</p>}
               {orders?.map((item) => (
                 <React.Fragment key={item.id}>
-                  <Orders {...item} />
+                  <Orders {...item} params={params} />
                 </React.Fragment>
               ))}
             </>

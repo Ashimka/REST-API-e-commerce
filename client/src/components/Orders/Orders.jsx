@@ -12,6 +12,7 @@ const AllOrders = (props) => {
   const MIN_PRICE = +process.env.REACT_APP_MIN_PRICE;
 
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [readyOrders, setReadyOrders] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -23,7 +24,12 @@ const AllOrders = (props) => {
     props.totalPrice;
 
   const checkOrder = (id) => {
-    setIsConfirmed(true);
+    if (props.params === "new") {
+      setIsConfirmed(true);
+    }
+    if (props.params === "confirm") {
+      setReadyOrders(true);
+    }
 
     const data = {
       id,
@@ -48,6 +54,15 @@ const AllOrders = (props) => {
               disabled={isConfirmed}
             >
               {isConfirmed ? "Подтвержден" : "Подтвердить заказ"}
+            </button>
+          )}
+          {props.params === "confirm" && (
+            <button
+              className={`check-order ${readyOrders ? "confirm" : ""}`}
+              onClick={() => checkOrder(props.id)}
+              disabled={readyOrders}
+            >
+              {readyOrders ? "Готов" : "Готовится"}
             </button>
           )}
         </div>

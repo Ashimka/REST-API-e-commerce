@@ -157,6 +157,7 @@ class OrderService {
 
       select: {
         id: true,
+        isReady: true,
         order_details: {
           select: {
             count: true,
@@ -220,6 +221,17 @@ class OrderService {
       });
 
       return orderConfirmed;
+    }
+
+    if (order === "confirm") {
+      const orderConfirm = await prisma.order.update({
+        where: { id },
+        data: {
+          isReady: confirmed,
+        },
+      });
+
+      return orderConfirm;
     }
   }
 }
