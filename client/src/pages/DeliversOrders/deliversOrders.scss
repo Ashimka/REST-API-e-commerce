@@ -40,6 +40,26 @@
         &__header {
           font-weight: 600;
           color: #10074e;
+          display: flex;
+          justify-content: space-between;
+
+          .check-order {
+            padding: 5px;
+            cursor: pointer;
+            background: var(--text-gray);
+            color: #8f8e8e;
+            border: 2px solid var(--bg-btn-hover);
+
+            &:hover {
+              border: 2px solid green;
+            }
+          }
+          .confirm {
+            background-color: aquamarine;
+            color: var(--text-black);
+            border: 2px solid green;
+            cursor: not-allowed;
+          }
         }
 
         &__body {

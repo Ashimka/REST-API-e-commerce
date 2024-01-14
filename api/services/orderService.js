@@ -102,6 +102,7 @@ class OrderService {
         select: {
           createdDate: true,
           id: true,
+          isConfirmed: true,
 
           order_details: {
             select: {

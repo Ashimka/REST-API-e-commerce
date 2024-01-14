@@ -1,6 +1,9 @@
 import React from "react";
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { confirmedOrders } from "../../redux/features/deliversSlice";
 
 import { dateFormat } from "../../utils/date";
 
@@ -8,12 +11,29 @@ const AllOrders = (props) => {
   const DELIVERY_PRICE = +process.env.REACT_APP_DELIVERY_PRICE;
   const MIN_PRICE = +process.env.REACT_APP_MIN_PRICE;
 
+  const [isConfirmed, setIsConfirmed] = useState(false);
+
+  const dispatch = useDispatch();
+
   const totalPrice =
     (props.order_details &&
       props.order_details.reduce((sum, obj) => {
         return obj.product.price * obj.count + sum;
       }, 0)) ||
     props.totalPrice;
+
+  const checkOrder = (id) => {
+    setIsConfirmed(true);
+
+    const data = {
+      id,
+      confirmed: true,
+      query: props.params,
+    };
+
+    dispatch(confirmedOrders(data));
+  };
+
   return (
     <>
       <div className="all-orders">
@@ -21,6 +41,15 @@ const AllOrders = (props) => {
           <div className="date-time">{`Заказ № ${props.id} от ${dateFormat(
             props.createdDate
           )}`}</div>
+          {props.params === "new" && (
+            <button
+              className={`check-order ${isConfirmed ? "confirm" : ""}`}
+              onClick={() => checkOrder(props.id)}
+              disabled={isConfirmed}
+            >
+              {isConfirmed ? "Подтвержден" : "Подтвердить заказ"}
+            </button>
+          )}
         </div>
         <ol className="all-orders__body">
           {props.order_details &&

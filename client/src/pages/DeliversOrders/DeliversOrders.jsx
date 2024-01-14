@@ -110,7 +110,7 @@ const DeliversOrders = () => {
               <h4>Новые заказы</h4>
               {orders?.map((item) => (
                 <React.Fragment key={item.id}>
-                  <Orders {...item} />
+                  <Orders {...item} params={params} />
                 </React.Fragment>
               ))}
             </>
