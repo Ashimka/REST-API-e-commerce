@@ -65,7 +65,6 @@ export const deliversSlice = createSlice({
       })
       .addCase(confirmedOrders.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
 
         if (!state.orders.isConfirmed) {
           state.orders.find((obj) => obj.id === action.payload.id).isConfirmed =

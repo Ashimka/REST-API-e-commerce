@@ -15,10 +15,17 @@ class ProductService {
       },
     });
 
+    const idCat = await prisma.category.findUnique({
+      where: {
+        name: category,
+      },
+    });
+
     await prisma.product_Cat.create({
       data: {
         name: textTranslit(category),
         productId: newProduct.id,
+        categoryId: idCat.id,
       },
     });
 

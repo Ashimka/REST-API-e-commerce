@@ -70,7 +70,7 @@ const AllOrders = (props) => {
           {props.order_details &&
             props.order_details.map((item, id) => (
               <li className="order" key={id}>
-                <span>{item.product.category.category.name}</span>
+                <span>{item.product.category.category?.name}</span>
                 <div className="name">{item.product.name}</div>
                 <div className="description">{item.product.description}</div>
                 <div className="count">{`Количество ${item.count}`}</div>
