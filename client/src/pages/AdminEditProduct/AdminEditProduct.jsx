@@ -18,9 +18,7 @@ const AdminEditProduct = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [isStock, setIsStock] = useState(false);
-  const [selectCategory, setSelectCategory] = useState("");
   const [oldImage, setOldImage] = useState("");
-  const [image, setImage] = useState(null);
   const [removeImage, setRemoveImage] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -29,7 +27,6 @@ const AdminEditProduct = () => {
   const navigate = useNavigate();
 
   const { products, isLoading } = useSelector((state) => state.product);
-  const { name } = useSelector((state) => state.category);
 
   useEffect(() => {
     dispatch(oneProduct(id));
@@ -43,7 +40,6 @@ const AdminEditProduct = () => {
       setPrice(products?.price || "");
       setIsStock(products?.in_stock || "");
       setOldImage(products?.image || "");
-      setSelectCategory(products?.category?.name || "");
     }
   }, [
     dispatch,
@@ -53,7 +49,6 @@ const AdminEditProduct = () => {
     products?.price,
     products?.in_stock,
     products?.image,
-    products?.category?.name,
   ]);
 
   const handleFile = async (event) => {
@@ -63,7 +58,7 @@ const AdminEditProduct = () => {
 
       const { data } = await axios.post("/upload", fileDada);
 
-      setImage(data.url);
+      setOldImage(data.url);
     } catch (error) {
       console.log(error);
     }
@@ -71,10 +66,14 @@ const AdminEditProduct = () => {
 
   const handleDeleteImage = async (file) => {
     try {
-      const name = file.split("").splice(1).join("");
+      if (removeImage) {
+        const name = file.split("").splice(1).join("");
 
-      await axios.delete(`/file/${name}`);
-      setOldImage(null);
+        await axios.delete(`/file/${name}`);
+        setOldImage("");
+
+        dispatch(updateProduct({ id, image: "" }));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -84,26 +83,13 @@ const AdminEditProduct = () => {
     event.preventDefault();
 
     try {
-      let newImage;
-
-      if (removeImage) {
-        await handleDeleteImage(oldImage);
-        newImage = null;
-        setOldImage(null);
-      }
-
-      if (oldImage) {
-        newImage = oldImage;
-      }
-
       const updateData = {
         id,
         name: title,
         description,
         price: Number(price),
         in_stock: Boolean(isStock),
-        category: selectCategory,
-        image: newImage ? newImage : image,
+        image: oldImage,
       };
 
       dispatch(updateProduct(updateData));
@@ -120,9 +106,10 @@ const AdminEditProduct = () => {
     navigate("/admins/products");
   };
 
-  const handleClickRemove = (value) => {
+  const handleClickRemove = async (value) => {
     setModalOpen(false);
     setRemoveImage(value);
+    await handleDeleteImage(oldImage);
   };
 
   return (
@@ -167,25 +154,7 @@ const AdminEditProduct = () => {
                 onChange={(event) => setIsStock(event.target.value)}
               />
             </label>
-            <select
-              className="admin-edit-product__input"
-              required
-              id="cat"
-              value={selectCategory}
-              onChange={(event) => setSelectCategory(event.target.value)}
-            >
-              <option disabled={true}>{selectCategory}</option>
-              {name &&
-                name.map((cat) => (
-                  <option
-                    key={cat.id}
-                    value={cat.name}
-                    disabled={cat.name === "Все" ? true : false}
-                  >
-                    {cat.name}
-                  </option>
-                ))}
-            </select>
+
             <input
               className="admin-edit-product__input"
               name="image"
@@ -210,7 +179,7 @@ const AdminEditProduct = () => {
             </div>
           </form>
           <div className="admin-edit-product-page__image">
-            {oldImage && !removeImage && (
+            {oldImage && (
               <>
                 <img
                   src={`${process.env.REACT_APP_BASE_URL}/upload${oldImage}`}

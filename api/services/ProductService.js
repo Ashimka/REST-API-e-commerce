@@ -88,22 +88,26 @@ class ProductService {
     return product;
   }
 
-  async updateProduct(id, name, description, image, price, in_stock, category) {
+  async updateProduct(id, dataProduct) {
+    if (Object.keys(dataProduct).length > 2) {
+      const productUpdate = await prisma.product.update({
+        where: { id },
+        data: {
+          name: dataProduct.name,
+          description: dataProduct.description,
+          image: dataProduct.image,
+          price: Number(dataProduct.price),
+          in_stock: Boolean(dataProduct.in_stock),
+        },
+      });
+
+      return productUpdate;
+    }
+
     const productUpdate = await prisma.product.update({
       where: { id },
       data: {
-        name,
-        description,
-        image,
-        price: Number(price),
-        in_stock: Boolean(in_stock),
-      },
-    });
-
-    await prisma.product_Cat.update({
-      where: { productId: id },
-      data: {
-        name: textTranslit(category),
+        image: dataProduct.image,
       },
     });
 
