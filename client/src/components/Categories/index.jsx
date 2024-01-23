@@ -5,16 +5,17 @@ import { allCategory } from "../../redux/features/categorySlice";
 
 import "./categories.scss";
 
-const Categories = ({ setTitle, setSearchParams }) => {
-  const [isActiveItem, setIsActiveItem] = useState("Vse");
+const Categories = ({ setTitle, setSearchParams, activeItem }) => {
+  const [isActiveItem, setIsActiveItem] = useState(activeItem);
 
   const { name } = useSelector((state) => state.category);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setIsActiveItem(activeItem);
     dispatch(allCategory());
-  }, [dispatch]);
+  }, [dispatch, setIsActiveItem, activeItem]);
 
   const handleActive = (cat) => {
     setIsActiveItem(cat.latin);

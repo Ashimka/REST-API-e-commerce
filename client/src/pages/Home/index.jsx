@@ -15,33 +15,44 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [activeItem, setActiveItem] = useState("");
 
   const { products, isLoading } = useSelector((state) => state.product);
 
   useEffect(() => {
-    if (!title) {
+    if (!title && !searchParams.get("category")) {
+      setActiveItem("Vse");
+
       dispatch(allProducts());
     }
-  }, [dispatch, title]);
+  }, [dispatch, title, searchParams]);
 
   useEffect(() => {
-    if (title) {
+    if (
+      searchParams.get("category") &&
+      searchParams.get("category") !== "Vse"
+    ) {
+      setActiveItem(searchParams.get("category"));
       dispatch(filterCategory(searchParams));
       navigate(`/products?${searchParams}`);
     }
   }, [dispatch, title, searchParams, navigate]);
 
   useEffect(() => {
-    if (!title) {
+    if (searchParams.get("category") === "Vse") {
       navigate("/");
     }
-  }, [title, navigate]);
+  }, [searchParams, navigate]);
 
   const data = products?.products || products;
 
   return (
     <>
-      <Categories setTitle={setTitle} setSearchParams={setSearchParams} />
+      <Categories
+        setTitle={setTitle}
+        setSearchParams={setSearchParams}
+        activeItem={activeItem}
+      />
       {isLoading ? (
         <h4>Loading...</h4>
       ) : (
