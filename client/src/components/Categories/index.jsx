@@ -5,7 +5,7 @@ import { allCategory } from "../../redux/features/categorySlice";
 
 import "./categories.scss";
 
-const Categories = ({ setTitle, setUrlParams }) => {
+const Categories = ({ setTitle, setSearchParams }) => {
   const [isActiveItem, setIsActiveItem] = useState("Vse");
 
   const { name } = useSelector((state) => state.category);
@@ -18,7 +18,7 @@ const Categories = ({ setTitle, setUrlParams }) => {
 
   const handleActive = (cat) => {
     setIsActiveItem(cat.latin);
-    setUrlParams(cat.latin);
+    setSearchParams({ category: cat.latin });
     if (cat.name === "Все") {
       return setTitle("");
     }
