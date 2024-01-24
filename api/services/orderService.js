@@ -158,6 +158,7 @@ class OrderService {
       select: {
         id: true,
         isReady: true,
+        createdDate: true,
         order_details: {
           select: {
             count: true,
@@ -192,6 +193,7 @@ class OrderService {
       },
       select: {
         id: true,
+        createdDate: true,
         totalPrice: true,
 
         user: {
