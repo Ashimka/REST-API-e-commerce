@@ -24,6 +24,13 @@ app.use(cookieParser());
 app.use("/api", router);
 app.use("/api/upload", express.static(path.join(__dirname, "upload")));
 
+let root = path.join(__dirname, "../client", "/build");
+app.use(express.static(root));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client", "/build", "index.html"));
+});
+
 app.use(errorHandler);
 
 app.listen(PORT, () => {
