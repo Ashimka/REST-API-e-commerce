@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import Profile from "./pages/ProfilePage";
 import OrderDetailsPage from "./pages/OrderDetailsPage/OrderDetailsPage";
 import DeliversOrders from "./pages/DeliversOrders/DeliversOrders";
+import Register from "./pages/Register/Register";
 
 const ROLES = {
   "admin": 777,
@@ -30,6 +31,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/products" element={<Home />} />
           <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/register" element={<Register />} />
 
           <Route element={<RequireAuth allowedRoles={[ROLES.user]} />}>
             <Route path="/users/profile" element={<Profile />} />
